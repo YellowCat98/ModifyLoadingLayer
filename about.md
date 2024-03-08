@@ -23,4 +23,4 @@ the preview in the LoadingLayer editor is not always accurate. so make sure to c
 > hide any sprite
 > android support (we dont talk about mac)
 
-if you have any issues.
+if you have any issues. submit an [issue.](https://github.com/YellowCat98/ModifyLoadingLayer/issues)
