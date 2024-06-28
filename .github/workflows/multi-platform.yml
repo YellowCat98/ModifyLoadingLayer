@@ -42,3 +42,15 @@ jobs:
         with:
           name: Build Output
           path: ${{ steps.build.outputs.build-output }}
+      
+      - name: Nightly
+        uses: andelf/nightly-release@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: nightly
+          name: 'Nightly'
+          body: |
+            This is the latest build for commit ${{ github.sha }} (${{ github.event.head_commit.message }}).
+            This build may contain bugs. please use the latest stable release either from geode, the geode website, or the latest github release.
+          files: ${{ steps.build.outputs.build-output }}
