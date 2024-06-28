@@ -259,14 +259,28 @@ void LoadingLayerEditor::onErase(CCObject* sender) {
                 std::remove((saveDir + "/FMod.png").c_str());
                 std::remove((saveDir + "/RobTopLogo.png").c_str());
                 
-                // Optionally, you can also save this action for future reference
+                
             }
         }
     );
 }
 
 void LoadingLayerEditor::onRestart(CCObject* sender) {
-    utils::game::restart();
+    auto disableornot = Mod::get()->getSettingValue<bool>("disable-restart-confirmation");
+    if (!disableornot) {
+    geode::createQuickPopup(
+        "Are you sure?",
+        "are you sure you want to restart the game? (you can disable this confirmation in the mod's <cy>settings.</c>)",
+        "no", "yes",
+        [](auto, bool btn2) {
+            if (btn2) {
+                utils::game::restart();
+                }
+            }
+        );
+    } else {
+        utils::game::restart();
+    }
 }
 
 void LoadingLayerEditor::onReload(CCObject* sender) {
