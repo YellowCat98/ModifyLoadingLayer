@@ -20,7 +20,7 @@ bool CustomLoadingLayer::init() {
 
     auto saveDir = Mod::get()->getSaveDir();
 
-    this->setScale(0.4f);
+    this->setScale(1.0f);
 
     auto BGPath = saveDir.string() + "/BG.png";
     auto BGSPR = CCSprite::create(BGPath.c_str());

@@ -23,7 +23,12 @@ class $modify(LoadingLayer) {
         auto RLSPR = CCSprite::create(RLPath.c_str());
         auto robtoplogo = static_cast<CCSprite*>(this->getChildByID("robtop-logo"));
         if (RLSPR) {
+            auto robtoplogoscaleY = robtoplogo->getScaleY();
+            RLSPR->setScaleY(robtoplogoscaleY);
+            auto robtoplogoscaleX = robtoplogo->getScaleX();
+            RLSPR->setScaleY(robtoplogoscaleX);
             robtoplogo->setTexture(RLSPR->getTexture());
+
         }
 
         auto CocosPath = saveDir.string() + "/Cocos.png";
