@@ -43,7 +43,7 @@ class $modify(MyMenuLayer, MenuLayer) {
 			std::bind(&test2),
 			spr
 		);
-		this->setID("dragNode");
+		dragNode->setID("dragNode");
 		this->addChild(dragNode);
 
 		return true;

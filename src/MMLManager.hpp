@@ -9,6 +9,6 @@ class MMLManager : public CCNode {
 protected:
     bool init();
 public:
-    void drag(DragNode* node);
+    void drag(DragNode* node, CCTouch* touch);
     static MMLManager* get();
 };

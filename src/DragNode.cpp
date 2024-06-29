@@ -8,8 +8,14 @@ bool DragNode::init(std::function<void()> onClick, std::function<void()> onRelea
     m_onClick = std::move(onClick);
     m_onRelease = std::move(onRelease);
 
-    this->addChild(THEFUCKINGSPRITE);
+    auto size = this->getContentSize();
+
+    auto center = CCPoint(size.width / 2, size.height / 2);
+
     THEFUCKINGSPRITE->setID("the-sprite");
+    THEFUCKINGSPRITE->setPosition(center);
+    this->addChild(THEFUCKINGSPRITE);
+    
     this->setTouchMode(kCCTouchesOneByOne);
     this->setTouchEnabled(true);
 
@@ -32,7 +38,7 @@ bool DragNode::ccTouchBegan(CCTouch* touch, CCEvent*) {
 
 void DragNode::ccTouchMoved(CCTouch* touch, CCEvent*) {
     MMLManager* mmlm = MMLManager::get();
-    mmlm->drag(this);
+    mmlm->drag(this, touch);
 }
 
 void DragNode::ccTouchEnded(CCTouch* touch, CCEvent*) {

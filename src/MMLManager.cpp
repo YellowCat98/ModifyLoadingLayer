@@ -7,13 +7,14 @@ bool MMLManager::init() {
     return true;
 }
 
-void MMLManager::drag(DragNode* node) {
-    auto m_toDrag = node;
-    auto m_lastDrag = -1;
+void MMLManager::drag(DragNode* node, CCTouch* touch) {
+    auto touchLoc = touch->getLocation();
 
-    auto const pos = node->convertToWorldSpace(node->getPosition());
-
-    node->setPosition(this->convertToNodeSpace(pos));
+    auto nodeParent = node->getParent();
+    if (nodeParent) {
+        auto nodePosition = nodeParent->convertToNodeSpace(touchLoc);
+        node->setPosition(nodePosition);
+    }
 }
 
 MMLManager* MMLManager::get() {
