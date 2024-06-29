@@ -12,6 +12,10 @@ add_library(${PROJECT_NAME} SHARED
     src/CustomLoadingLayer.hpp
     src/CustomLoadingLayer.cpp
     src/LoadignLayer.cpp
+    src/DragNode.hpp
+    src/DragNode.cpp
+    src/MMLManager.cpp
+    src/MMLManager.hpp
 )
 
 if (NOT DEFINED ENV{GEODE_SDK})

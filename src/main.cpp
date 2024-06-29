@@ -4,8 +4,18 @@
 #include <Geode/modify/MenuLayer.hpp>
 #include <Geode/modify/LoadingLayer.hpp>
 #include "CustomLoadingLayer.hpp"
+#include "DragNode.hpp"
+#include "MMLManager.hpp"
 
 using namespace geode::prelude;
+
+void test() {
+	log::info("click");
+}
+
+void test2() {
+	log::info("release");
+}
 
 
 class $modify(MyMenuLayer, MenuLayer) {
@@ -27,6 +37,14 @@ class $modify(MyMenuLayer, MenuLayer) {
 		myButton->setID("mll-editor-button"_spr);
 
 		menu->updateLayout();
+		auto spr = CCSprite::createWithSpriteFrameName("GJ_likeBtn_001.png");
+		auto dragNode = DragNode::create(
+			std::bind(&test),
+			std::bind(&test2),
+			spr
+		);
+		this->setID("dragNode");
+		this->addChild(dragNode);
 
 		return true;
 	}
