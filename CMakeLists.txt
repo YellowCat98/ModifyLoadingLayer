@@ -11,8 +11,6 @@ add_library(${PROJECT_NAME} SHARED
     src/main.cpp
     src/CustomLoadingLayer.hpp
     src/CustomLoadingLayer.cpp
-    src/LoadingLayerEditor.hpp
-    src/Buttons.cpp
     src/LoadignLayer.cpp
 )
 

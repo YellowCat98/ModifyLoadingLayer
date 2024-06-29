@@ -1,10 +1,9 @@
-// yes i used the template
+// yes i AM the geode tempalte
 
 #include <Geode/Geode.hpp>
 #include <Geode/modify/MenuLayer.hpp>
 #include <Geode/modify/LoadingLayer.hpp>
 #include "CustomLoadingLayer.hpp"
-#include "LoadingLayerEditor.hpp"
 
 using namespace geode::prelude;
 
@@ -37,13 +36,9 @@ class $modify(MyMenuLayer, MenuLayer) {
 
 	
     auto loadinglayer = CustomLoadingLayer::create();
-	auto loadinglayereditor = LoadingLayerEditor::create();
-    
 
 
     scene->addChild(loadinglayer);
-	scene->addChild(loadinglayereditor);
-
 
     CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5f, scene));
 	}
