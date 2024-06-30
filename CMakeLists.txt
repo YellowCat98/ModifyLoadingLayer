@@ -16,6 +16,8 @@ add_library(${PROJECT_NAME} SHARED
     src/DragNode.cpp
     src/MMLManager.cpp
     src/MMLManager.hpp
+    src/Toolbar.cpp
+    src/Toolbar.hpp
 )
 
 if (NOT DEFINED ENV{GEODE_SDK})

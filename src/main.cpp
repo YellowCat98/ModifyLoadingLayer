@@ -37,14 +37,6 @@ class $modify(MyMenuLayer, MenuLayer) {
 		myButton->setID("mll-editor-button"_spr);
 
 		menu->updateLayout();
-		auto spr = CCSprite::createWithSpriteFrameName("GJ_likeBtn_001.png");
-		auto dragNode = DragNode::create(
-			std::bind(&test),
-			std::bind(&test2),
-			spr
-		);
-		dragNode->setID("dragNode");
-		this->addChild(dragNode);
 
 		return true;
 	}

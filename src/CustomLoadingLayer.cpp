@@ -7,6 +7,7 @@
 #include <iostream>
 #include <cstdio>
 #include "DragNode.hpp"
+#include "Toolbar.hpp"
 using namespace geode::prelude;
 
 void touch() {
@@ -135,6 +136,10 @@ bool CustomLoadingLayer::init() {
     bgtexture->setZOrder(-1);
     this->addChild(bgtexture);
     }
+
+    // add toolbar
+    auto toolbar = Toolbar::create();
+    this->addChild(toolbar);
 
 
     // </reverseengineeringloadinglayer>
