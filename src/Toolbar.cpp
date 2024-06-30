@@ -22,14 +22,16 @@ bool Toolbar::init() {
 }
 
 void Toolbar::moving(CCObject* sender) {
-    bool shown = true;
+    static bool shown = true;
     float duration = 0.4f;
     float deltaY;
+    float positionY = this->getPositionY();
     if (shown) {
-        deltaY = (this->getPositionY() + 20.0f) - 300; // wtf
+        deltaY = 20.0f;
         shown = false;
     } else {
-        deltaY = this->getPositionY() - 20.0f;
+        deltaY = -20.0f;
+        shown = true;
     }
 
     auto moveBy = CCMoveBy::create(duration, CCPoint(0, deltaY));
