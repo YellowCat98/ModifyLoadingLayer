@@ -6,8 +6,16 @@
 #include <fstream>
 #include <iostream>
 #include <cstdio>
-
+#include "DragNode.hpp"
 using namespace geode::prelude;
+
+void touch() {
+    log::info("TOUCHED!");
+}
+
+void untouch() {
+    log::info("UNTOUCHED!");
+}
 
 bool CustomLoadingLayer::init() {
     if (!CCLayer::init()) return false;
@@ -21,21 +29,21 @@ bool CustomLoadingLayer::init() {
     auto BGSPR = CCSprite::create(BGPath.c_str());
 
     auto RLPath = saveDir.string() + "/RobTopLogo.png";
-    auto RLSPR = CCSprite::create(RLPath.c_str());
+    auto RLSPR = DragNode::create(std::bind(&touch), std::bind(&untouch), CCSprite::create(RLPath.c_str()));
 
     auto CocosPath = saveDir.string() + "/Cocos.png";
-    auto CocosSPR = CCSprite::create(CocosPath.c_str());
+    auto CocosSPR = DragNode::create(std::bind(&touch), std::bind(&untouch), CCSprite::create(CocosPath.c_str()));
 
     auto FModPath = saveDir.string() + "/FMod.png";
-    auto FModSPR = CCSprite::create(FModPath.c_str());
+    auto FModSPR = DragNode::create(std::bind(&touch), std::bind(&untouch), CCSprite::create(FModPath.c_str()));
 
     auto GJLogoPath = saveDir.string() + "/GJLogo.png";
-    auto GJLogoSPR = CCSprite::create(GJLogoPath.c_str());
+    auto GJLogoSPR = DragNode::create(std::bind(&touch), std::bind(&untouch), CCSprite::create(GJLogoPath.c_str()));
 
-    auto gdlogo = CCSprite::createWithSpriteFrameName("GJ_logo_001.png");
-    auto robtoplogo = CCSprite::createWithSpriteFrameName("RobTopLogoBig_001.png");
-    auto fmodlogo = CCSprite::createWithSpriteFrameName("fmodLogo.png");
-    auto cocos2dlogo = CCSprite::createWithSpriteFrameName("cocos2DxLogo.png");
+    auto gdlogo = DragNode::create(std::bind(&touch), std::bind(&untouch), CCSprite::createWithSpriteFrameName("GJ_logo_001.png"));
+    auto robtoplogo = DragNode::create(std::bind(&touch), std::bind(&untouch), CCSprite::createWithSpriteFrameName("RobTopLogoBig_001.png"));
+    auto fmodlogo = DragNode::create(std::bind(&touch), std::bind(&untouch), CCSprite::createWithSpriteFrameName("fmodLogo.png"));
+    auto cocos2dlogo = DragNode::create(std::bind(&touch), std::bind(&untouch), CCSprite::createWithSpriteFrameName("cocos2DxLogo.png"));
     auto bgtexture = CCSprite::create("game_bg_01_001.png");
 
     // gd logo

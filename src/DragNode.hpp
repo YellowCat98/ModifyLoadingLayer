@@ -3,7 +3,7 @@
 
 using namespace geode::prelude;
 
-class DragNode : public CCLayer {
+class DragNode : public CCLayerColor {
 protected:
     std::function<void()> m_onClick;
     std::function<void()> m_onRelease;

@@ -4,17 +4,22 @@
 #include <utility>
 
 bool DragNode::init(std::function<void()> onClick, std::function<void()> onRelease, CCSprite* THEFUCKINGSPRITE) {
-    if (!CCLayer::init()) return false;
+    if (!CCLayerColor::init()) return false;
     m_onClick = std::move(onClick);
     m_onRelease = std::move(onRelease);
+    if (THEFUCKINGSPRITE) {
+        this->addChild(THEFUCKINGSPRITE);
+        auto sprSize = THEFUCKINGSPRITE->getContentSize();
+        THEFUCKINGSPRITE->setID("the-sprite");
+        this->setContentSize(sprSize);
+        auto size = this->getContentSize();
+        auto center = CCPoint(size.width / 2, size.height / 2);
+        THEFUCKINGSPRITE->setPosition(center);
+    } else {
+        return false;
+    }
 
-    auto size = this->getContentSize();
-
-    auto center = CCPoint(size.width / 2, size.height / 2);
-
-    THEFUCKINGSPRITE->setID("the-sprite");
-    THEFUCKINGSPRITE->setPosition(center);
-    this->addChild(THEFUCKINGSPRITE);
+    
     
     this->setTouchMode(kCCTouchesOneByOne);
     this->setTouchEnabled(true);
