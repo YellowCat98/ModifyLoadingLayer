@@ -13,9 +13,23 @@ bool Toolbar::init() {
     menu->setPosition({0.0f, 0.0f});
     menu->setContentSize({size.width, 20.0f});
     this->addChild(menu);
-    themenu = menu;
+    
+
+    auto moveBtn = CCMenuItemSpriteExtra::create(CCSprite::createWithSpriteFrameName("GJ_arrow_03_001.png"), this, menu_selector(Toolbar::moving));
+    menu->addChild(moveBtn);
 
     return true;
+}
+
+void Toolbar::moving(CCObject* sender) {
+    float duration = 0.4f;
+    float deltaY = (this->getPositionY() + 20.0f) - 300; // wtf
+
+    auto moveBy = CCMoveBy::create(duration, CCPoint(0, deltaY));
+
+    auto easeSineOut = CCEaseSineOut::create(moveBy);
+
+    this->runAction(easeSineOut);
 }
 
 Toolbar* Toolbar::create() {
