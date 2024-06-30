@@ -8,6 +8,7 @@ bool DragNode::init(std::function<void()> onClick, std::function<void()> onRelea
     m_onClick = std::move(onClick);
     m_onRelease = std::move(onRelease);
     if (THEFUCKINGSPRITE) {
+        theSprite = THEFUCKINGSPRITE;
         this->addChild(THEFUCKINGSPRITE);
         auto sprSize = THEFUCKINGSPRITE->getContentSize();
         THEFUCKINGSPRITE->setID("the-sprite");
@@ -49,6 +50,14 @@ void DragNode::ccTouchMoved(CCTouch* touch, CCEvent*) {
 void DragNode::ccTouchEnded(CCTouch* touch, CCEvent*) {
     if (m_onRelease)
         m_onRelease();
+}
+
+void DragNode::setColor(const ccColor3B& color3) {
+    if (theSprite) {
+        theSprite->setColor(color3);
+    } else {
+        return;
+    }
 }
 
 DragNode* DragNode::create(std::function<void()> onClick, std::function<void()> onRelease, CCSprite* THEFUCKINGSPRITE) {
