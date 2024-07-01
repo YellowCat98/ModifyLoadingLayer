@@ -24,7 +24,7 @@ class $modify(MyMenuLayer, MenuLayer) {
 			return false;
 		}
 		auto myButton = CCMenuItemSpriteExtra::create(
-			CCSprite::create("MLL_EditorBtn_001.png"_spr),
+			CCSprite::createWithSpriteFrameName("MLL_EditorBtn_001.png"_spr),
 			this,
 			menu_selector(MyMenuLayer::onMyButton)
 		);

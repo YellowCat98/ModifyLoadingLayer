@@ -11,9 +11,11 @@
 	"developer": "YellowCat98",
 	"description": "This mod lets you modify LoadingLayer however you want. and save it.",
 	"resources": {
-		"sprites": [
-			"resources/*.png"
-		]
+		"spritesheets": {
+			"MMLSheet": [
+				"resources/*.png"
+			]
+		}
 	},
 	"settings": {
 		"disable-restart-confirmation": {
