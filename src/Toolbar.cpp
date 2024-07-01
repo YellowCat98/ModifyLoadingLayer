@@ -54,12 +54,11 @@ void Toolbar::moving(CCObject* sender) {
 
     this->runAction(easeSineOut);
 
-    auto sequence = CCSequence::create(CCDelayTime::create(0.4f), easeFartOut, nullptr);
+   auto callback = CCCallFunc::create(this, callfunc_selector(Toolbar::moveHidebutton));
+
+    auto sequence = CCSequence::create(CCDelayTime::create(0.4f), easeFartOut, callback);
     
     hideToolbar->runAction(sequence);
-
-    hideToolbar->setEnabled(true);
-    log::info("first sequence finished... supposdely.");
     
 }
 
