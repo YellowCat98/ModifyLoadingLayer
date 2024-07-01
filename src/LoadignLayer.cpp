@@ -1,4 +1,4 @@
-#include <Geode/geode.hpp>
+#include <Geode/Geode.hpp>
 #include <Geode/modify/LoadingLayer.hpp>
 #include <Geode/modify/MenuLayer.hpp>
 
