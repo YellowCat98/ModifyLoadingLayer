@@ -3,10 +3,11 @@
 
 using namespace geode::prelude;
 
-class LoadingEditorUI : public CCLayerColor {
+class LoadingEditorUI : public CCLayer {
 protected:
     CCMenuItemSpriteExtra* hideToolbar;
-    CCEaseSineOut* action; // this code is getting horrible
+    CCMenuItemSpriteExtra* hideBoxB;
+    CCLayerColor* toolbar;
     bool init();
     void moving(CCObject* sender);
     void moveHidebutton();
