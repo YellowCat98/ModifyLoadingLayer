@@ -24,10 +24,17 @@ bool LoadingEditorUI::init() {
     moveBtn->setRotation(-90.0f);
     moveBtn->setPosition({10.0f, 10.0f});
     moveBtn->setScale(0.5f);
-    CCMENUISE_REMOVE_EASE(moveBtn);
+    REMOVE_EASE(moveBtn);
     menu->addChild(moveBtn);
     hideToolbar = moveBtn;
     // </create hide toolbar>
+
+    // <create reset button>
+    reset = CCMenuItemSpriteExtra::create(CCSprite::createWithSpriteFrameName("Erase.png"_spr), this, menu_selector(LoadingEditorUI::Reset));
+    reset->setPosition({(10.0f + 25.0f), 10.0f});
+    reset->setScale(0.4f);
+    REMOVE_EASE(reset);
+    menu->addChild(reset);
 
     return true;
 }
@@ -70,6 +77,20 @@ void LoadingEditorUI::moving(CCObject* sender) {
 
 void LoadingEditorUI::moveHidebutton() {
     hideToolbar->setEnabled(true);
+}
+
+void LoadingEditorUI::Reset(CCObject* sender) {
+    reset->setScale(0.4f);
+    geode::createQuickPopup(
+        "Confirm",
+        "This <cr>resets</c> all modifications you've done so far. Are you sure?",
+        "Yes", "No",
+        [](auto, bool btn2) {
+            if (btn2) {
+                log::info("wohooo!!!");
+            }
+        }
+    );
 }
 
 LoadingEditorUI* LoadingEditorUI::create() {

@@ -5,7 +5,7 @@
 
 using namespace geode::prelude;
 
-#define CCMENUISE_REMOVE_EASE(menuItem) do { \
+#define REMOVE_EASE(menuItem) do { \
     menuItem->m_animationEnabled = false; \
     menuItem->m_colorEnabled = true; \
 } while(0)
