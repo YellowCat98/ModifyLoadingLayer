@@ -19,9 +19,6 @@ void test2() {
 
 
 class $modify(MyMenuLayer, MenuLayer) {
-struct Fields {
-	Slider* aslider;
-};
 	bool init() {
 		if (!MenuLayer::init()) {
 			return false;
