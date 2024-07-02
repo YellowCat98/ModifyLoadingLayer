@@ -14,8 +14,8 @@ add_library(${PROJECT_NAME} SHARED
     src/LoadignLayer.cpp
     src/DragNode.hpp
     src/DragNode.cpp
-    src/MMLManager.cpp
-    src/MMLManager.hpp
+    src/MLLManager.cpp
+    src/MLLManager.hpp
     src/LoadingEditorUI.cpp
     src/LoadingEditorUI.hpp
 )
