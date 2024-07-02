@@ -1,13 +1,13 @@
-#include "MMLManager.hpp"
+#include "MLLManager.hpp"
 #include "DragNode.hpp"
 
-bool MMLManager::init() {
+bool MLLManager::init() {
     if (!CCNode::init()) return false;
 
     return true;
 }
 
-void MMLManager::drag(DragNode* node, CCTouch* touch) {
+void MLLManager::drag(DragNode* node, CCTouch* touch) {
     auto touchLoc = touch->getLocation();
 
     auto nodeParent = node->getParent();
@@ -17,8 +17,15 @@ void MMLManager::drag(DragNode* node, CCTouch* touch) {
     }
 }
 
-MMLManager* MMLManager::get() {
-    MMLManager* layer = new MMLManager();
+std::map<std::string, float> MLLManager::CCPointToMap(const CCPoint& point) {
+    std::map<std::string, float> value;
+    value["x"] = point.x;
+    value["y"] = point.y;
+    return value;
+}
+
+MLLManager* MLLManager::get() {
+    MLLManager* layer = new MLLManager();
     if (layer && layer->init()) {
         layer->autorelease();
         return layer;

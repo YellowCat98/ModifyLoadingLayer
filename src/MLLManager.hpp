@@ -10,10 +10,11 @@ using namespace geode::prelude;
     menuItem->m_colorEnabled = true; \
 } while(0)
 
-class MMLManager : public CCNode {
+class MLLManager : public CCNode {
 protected:
     bool init();
 public:
     void drag(DragNode* node, CCTouch* touch);
-    static MMLManager* get();
+    std::map<std::string, float> CCPointToMap(const CCPoint& point);
+    static MLLManager* get();
 };

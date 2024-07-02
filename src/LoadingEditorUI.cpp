@@ -1,5 +1,6 @@
 #include "LoadingEditorUI.hpp"
-#include "MMLManager.hpp" // for CCMENUISE_REMOVE_EASE
+#include "MLLManager.hpp" // for CCMENUISE_REMOVE_EASE
+#include "CustomLoadingLayer.hpp"
 
 bool LoadingEditorUI::init() {
     if (!CCLayer::init()) return false;
@@ -30,11 +31,19 @@ bool LoadingEditorUI::init() {
     // </create hide toolbar>
 
     // <create reset button>
-    reset = CCMenuItemSpriteExtra::create(CCSprite::createWithSpriteFrameName("Erase.png"_spr), this, menu_selector(LoadingEditorUI::Reset));
-    reset->setPosition({(10.0f + 25.0f), 10.0f});
+    reset = CCMenuItemSpriteExtra::create(CCSprite::createWithSpriteFrameName("MLL_EraseBtn.png"_spr), this, menu_selector(LoadingEditorUI::Reset));
+    reset->setPosition({(moveBtn->getPositionX() + 20.0f), 10.0f});
     reset->setScale(0.4f);
     REMOVE_EASE(reset);
     menu->addChild(reset);
+    // </create reset button>
+
+    // <create restart button>
+    restart = CCMenuItemSpriteExtra::create(CCSprite::createWithSpriteFrameName("MLL_RestartBtn.png"_spr), this, menu_selector(LoadingEditorUI::Restart));
+    restart->setPosition({(reset->getPositionX() + 20.0f), 10.0f});
+    restart->setScale(0.4f);
+    REMOVE_EASE(restart);
+    menu->addChild(restart);
 
     return true;
 }
@@ -83,11 +92,29 @@ void LoadingEditorUI::Reset(CCObject* sender) {
     reset->setScale(0.4f);
     geode::createQuickPopup(
         "Confirm",
-        "This <cr>resets</c> all modifications you've done so far. Are you sure?",
+        "This <cr>resets</c> all modifications you've done. Are you sure?",
+        "Yes", "No",
+        [this](auto, bool btn2) {
+            if (!btn2) {
+                auto customloadinglayer = static_cast<CustomLoadingLayer*>(this->getParent());
+                customloadinglayer->resetPosition();
+            }
+        }
+    );
+}
+
+void LoadingEditorUI::Restart(CCObject* sender) {
+    restart->setScale(0.4f);
+    geode::createQuickPopup(
+        "Confirm",
+        "This restarts the game,\n"
+        "Please save any changes you've done.\n"
+        "Otherwise they will be lost."
+        "Are you sure?",
         "Yes", "No",
         [](auto, bool btn2) {
-            if (btn2) {
-                log::info("wohooo!!!");
+            if (!btn2) {
+                utils::game::restart();
             }
         }
     );

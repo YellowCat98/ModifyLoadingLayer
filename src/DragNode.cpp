@@ -1,5 +1,5 @@
 #include "DragNode.hpp" // already includes geode and geode ns
-#include "MMLManager.hpp"
+#include "MLLManager.hpp"
 
 #include <utility>
 
@@ -43,7 +43,7 @@ bool DragNode::ccTouchBegan(CCTouch* touch, CCEvent*) {
 }
 
 void DragNode::ccTouchMoved(CCTouch* touch, CCEvent*) {
-    MMLManager* mmlm = MMLManager::get();
+    MLLManager* mmlm = MLLManager::get();
     mmlm->drag(this, touch);
 }
 

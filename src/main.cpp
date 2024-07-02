@@ -5,7 +5,7 @@
 #include <Geode/modify/LoadingLayer.hpp>
 #include "CustomLoadingLayer.hpp"
 #include "DragNode.hpp"
-#include "MMLManager.hpp"
+#include "MLLManager.hpp"
 
 using namespace geode::prelude;
 
@@ -27,7 +27,7 @@ struct Fields {
 			return false;
 		}
 		auto myButton = CCMenuItemSpriteExtra::create(
-			CCSprite::createWithSpriteFrameName("MLL_EditorBtn_001.png"_spr),
+			CCSprite::createWithSpriteFrameName("MLL_EditorBtn.png"_spr),
 			this,
 			menu_selector(MyMenuLayer::onMyButton)
 		);

@@ -8,6 +8,7 @@
 #include <cstdio>
 #include "DragNode.hpp"
 #include "LoadingEditorUI.hpp"
+#include "MLLManager.hpp"
 using namespace geode::prelude;
 
 void touch() {
@@ -25,21 +26,6 @@ bool CustomLoadingLayer::init() {
     // <reverseengineeringloadinglayer>
 
     auto saveDir = Mod::get()->getSaveDir();
-
-    auto BGPath = saveDir.string() + "/BG.png";
-    auto BGSPR = CCSprite::create(BGPath.c_str());
-
-    auto RLPath = saveDir.string() + "/RobTopLogo.png";
-    auto RLSPR = DragNode::create(std::bind(&touch), std::bind(&untouch), CCSprite::create(RLPath.c_str()));
-
-    auto CocosPath = saveDir.string() + "/Cocos.png";
-    auto CocosSPR = DragNode::create(std::bind(&touch), std::bind(&untouch), CCSprite::create(CocosPath.c_str()));
-
-    auto FModPath = saveDir.string() + "/FMod.png";
-    auto FModSPR = DragNode::create(std::bind(&touch), std::bind(&untouch), CCSprite::create(FModPath.c_str()));
-
-    auto GJLogoPath = saveDir.string() + "/GJLogo.png";
-    auto GJLogoSPR = DragNode::create(std::bind(&touch), std::bind(&untouch), CCSprite::create(GJLogoPath.c_str()));
 
     gdlogo = DragNode::create(std::bind(&touch), std::bind(&untouch), CCSprite::createWithSpriteFrameName("GJ_logo_001.png"));
     robtoplogo = DragNode::create(std::bind(&touch), std::bind(&untouch), CCSprite::createWithSpriteFrameName("RobTopLogoBig_001.png"));
@@ -92,13 +78,36 @@ bool CustomLoadingLayer::init() {
     bgtexture->setZOrder(-1);
     this->addChild(bgtexture);
 
-    auto toolbar = LoadingEditorUI::create();
-    this->addChild(toolbar);
-
-
     // </reverseengineeringloadinglayer>
 
+    auto editorui = LoadingEditorUI::create();
+    this->addChild(editorui);
+    auto mmlm = MLLManager::get();
+    DefaultPositions[gdlogo->getID()] = mmlm->CCPointToMap(CCPoint(283.5, 160.0));
+    DefaultPositions[robtoplogo->getID()] = mmlm->CCPointToMap(CCPoint(283.4, 240.0));
+    DefaultPositions[fmodlogo->getID()] = mmlm->CCPointToMap(CCPoint(533.0, 33.0));
+    DefaultPositions[cocos2dlogo->getID()] = mmlm->CCPointToMap(CCPoint(533.0, 13.0));
+
     return true;
+}
+
+void CustomLoadingLayer::resetPosition() {
+    auto gdlogopos = CCPoint(DefaultPositions["gd-logo"]["x"], DefaultPositions["gd-logo"]["y"]);
+    auto robtoplogopos = CCPoint(DefaultPositions["robtop-logo"]["x"], DefaultPositions["robtop-logo"]["y"]);
+    auto fmodlogopos = CCPoint(DefaultPositions["fmod-logo"]["x"], DefaultPositions["fmod-logo"]["y"]);
+    auto cocos2dlogopos= CCPoint(DefaultPositions["cocos2d-logo"]["x"], DefaultPositions["cocos2d-logo"]["y"]);
+    gdlogo->setPosition(gdlogopos);
+    robtoplogo->setPosition(robtoplogopos);
+    fmodlogo->setPosition(fmodlogopos);
+    cocos2dlogo->setPosition(cocos2dlogopos);
+}
+
+void CustomLoadingLayer::getPositions() {
+    auto mmlm = MLLManager::get();
+    Positions[gdlogo->getID()] = mmlm->CCPointToMap(gdlogo->getPosition());
+    Positions[robtoplogo->getID()] = mmlm->CCPointToMap(robtoplogo->getPosition());
+    Positions[fmodlogo->getID()] = mmlm->CCPointToMap(fmodlogo->getPosition());
+    Positions[cocos2dlogo->getID()] = mmlm->CCPointToMap(cocos2dlogo->getPosition());
 }
 
 CustomLoadingLayer* CustomLoadingLayer::create() {
@@ -110,4 +119,3 @@ CustomLoadingLayer* CustomLoadingLayer::create() {
     CC_SAFE_DELETE(layer);
     return nullptr;
 }
-
