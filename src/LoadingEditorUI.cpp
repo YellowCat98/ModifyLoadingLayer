@@ -1,7 +1,7 @@
-#include "Toolbar.hpp"
+#include "LoadingEditorUI.hpp"
 #include "MMLManager.hpp" // for CCMENUISE_REMOVE_EASE
 
-bool Toolbar::init() {
+bool LoadingEditorUI::init() {
     if (!CCLayerColor::init()) return false;
     float top = CCDirector::sharedDirector()->getWinSize().height;
 
@@ -16,7 +16,7 @@ bool Toolbar::init() {
     this->addChild(menu);
     
 
-    auto moveBtn = CCMenuItemSpriteExtra::create(CCSprite::createWithSpriteFrameName("GJ_arrow_03_001.png"), this, menu_selector(Toolbar::moving));
+    auto moveBtn = CCMenuItemSpriteExtra::create(CCSprite::createWithSpriteFrameName("GJ_arrow_03_001.png"), this, menu_selector(LoadingEditorUI::moving));
     moveBtn->setRotation(-90.0f);
     moveBtn->setPosition({10.0f, 10.0f});
     moveBtn->setScale(0.5f);
@@ -28,7 +28,7 @@ bool Toolbar::init() {
     return true;
 }
 
-void Toolbar::moving(CCObject* sender) {
+void LoadingEditorUI::moving(CCObject* sender) {
     hideToolbar->setScale(0.5f); // thanks!
     hideToolbar->setEnabled(false);
     static bool shown = true;
@@ -54,7 +54,7 @@ void Toolbar::moving(CCObject* sender) {
 
     this->runAction(easeSineOut);
 
-    auto callback = CCCallFunc::create(this, callfunc_selector(Toolbar::moveHidebutton));
+    auto callback = CCCallFunc::create(this, callfunc_selector(LoadingEditorUI::moveHidebutton));
     
     if (callback) {
         auto sequence = CCSequence::create(CCDelayTime::create(0.4f), easeFartOut, callback, nullptr);
@@ -66,12 +66,12 @@ void Toolbar::moving(CCObject* sender) {
     }
 }
 
-void Toolbar::moveHidebutton() {
+void LoadingEditorUI::moveHidebutton() {
     hideToolbar->setEnabled(true);
 }
 
-Toolbar* Toolbar::create() {
-    Toolbar* layer = new Toolbar();
+LoadingEditorUI* LoadingEditorUI::create() {
+    LoadingEditorUI* layer = new LoadingEditorUI();
     if (layer && layer->init()) {
         layer->autorelease();
         return layer;

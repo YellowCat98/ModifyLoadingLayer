@@ -19,6 +19,9 @@ void test2() {
 
 
 class $modify(MyMenuLayer, MenuLayer) {
+struct Fields {
+	Slider* aslider;
+};
 	bool init() {
 		if (!MenuLayer::init()) {
 			return false;
@@ -53,4 +56,3 @@ class $modify(MyMenuLayer, MenuLayer) {
     CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5f, scene));
 	}
 };
-

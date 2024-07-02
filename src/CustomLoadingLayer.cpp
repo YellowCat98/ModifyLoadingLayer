@@ -7,7 +7,7 @@
 #include <iostream>
 #include <cstdio>
 #include "DragNode.hpp"
-#include "Toolbar.hpp"
+#include "LoadingEditorUI.hpp"
 using namespace geode::prelude;
 
 void touch() {
@@ -137,8 +137,7 @@ bool CustomLoadingLayer::init() {
     this->addChild(bgtexture);
     }
 
-    // add toolbar
-    auto toolbar = Toolbar::create();
+    auto toolbar = LoadingEditorUI::create();
     this->addChild(toolbar);
 
 
