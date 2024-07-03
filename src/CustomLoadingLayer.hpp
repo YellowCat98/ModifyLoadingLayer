@@ -1,6 +1,7 @@
 #pragma once
 #include <Geode/Geode.hpp>
 #include "DragNode.hpp"
+#include "MLLManager.hpp"
 
 using namespace geode::prelude;
 
@@ -11,6 +12,7 @@ public:
     DragNode* cocos2dlogo;
     DragNode* gdlogo;
     CCSprite* bgtexture;
+    MLLManager* mllm;
     std::map<std::string, std::map<std::string, float>> DefaultPositions;
     std::map<std::string, std::map<std::string, float>> Positions;
 

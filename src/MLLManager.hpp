@@ -17,5 +17,6 @@ public:
     std::string currentSelectedNode;
     void drag(DragNode* node, CCTouch* touch);
     std::map<std::string, float> CCPointToMap(const CCPoint& point);
+    void rotateAroundPoint(CCSprite* node, CCTouch* touch, const float& radius, const CCPoint& center);
     static MLLManager* get();
 };

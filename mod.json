@@ -13,7 +13,7 @@
 	"description": "This mod lets you modify The loading screen however you want. and save it and share!!!",
 	"resources": {
 		"spritesheets": {
-			"MMLSheet": [
+			"MLLSheet": [
 				"resources/*.png"
 			]
 		}

@@ -6,16 +6,9 @@
 #include "CustomLoadingLayer.hpp"
 #include "DragNode.hpp"
 #include "MLLManager.hpp"
+#include "RotationControl.hpp"
 
 using namespace geode::prelude;
-
-void test() {
-	log::info("click");
-}
-
-void test2() {
-	log::info("release");
-}
 
 
 class $modify(MyMenuLayer, MenuLayer) {
@@ -37,6 +30,8 @@ class $modify(MyMenuLayer, MenuLayer) {
 		myButton->setID("mll-editor-button"_spr);
 
 		menu->updateLayout();
+
+		this->addChild(RotationControl::create());
 
 		return true;
 	}

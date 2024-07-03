@@ -76,11 +76,12 @@ bool CustomLoadingLayer::init() {
 
     auto editorui = LoadingEditorUI::create();
     this->addChild(editorui);
-    auto mmlm = MLLManager::get();
-    DefaultPositions[gdlogo->getID()] = mmlm->CCPointToMap(CCPoint(283.5, 160.0));
-    DefaultPositions[robtoplogo->getID()] = mmlm->CCPointToMap(CCPoint(283.4, 240.0));
-    DefaultPositions[fmodlogo->getID()] = mmlm->CCPointToMap(CCPoint(533.0, 33.0));
-    DefaultPositions[cocos2dlogo->getID()] = mmlm->CCPointToMap(CCPoint(533.0, 13.0));
+    mllm = MLLManager::get();
+    this->addChild(mllm); // might need for later
+    DefaultPositions[gdlogo->getID()] = mllm->CCPointToMap(CCPoint(283.5, 160.0));
+    DefaultPositions[robtoplogo->getID()] = mllm->CCPointToMap(CCPoint(283.4, 240.0));
+    DefaultPositions[fmodlogo->getID()] = mllm->CCPointToMap(CCPoint(533.0, 33.0));
+    DefaultPositions[cocos2dlogo->getID()] = mllm->CCPointToMap(CCPoint(533.0, 13.0));
 
     return true;
 }
@@ -97,11 +98,11 @@ void CustomLoadingLayer::resetPosition() {
 }
 
 void CustomLoadingLayer::getPositions() {
-    auto mmlm = MLLManager::get();
-    Positions[gdlogo->getID()] = mmlm->CCPointToMap(gdlogo->getPosition());
-    Positions[robtoplogo->getID()] = mmlm->CCPointToMap(robtoplogo->getPosition());
-    Positions[fmodlogo->getID()] = mmlm->CCPointToMap(fmodlogo->getPosition());
-    Positions[cocos2dlogo->getID()] = mmlm->CCPointToMap(cocos2dlogo->getPosition());
+    mllm = MLLManager::get();
+    Positions[gdlogo->getID()] = mllm->CCPointToMap(gdlogo->getPosition());
+    Positions[robtoplogo->getID()] = mllm->CCPointToMap(robtoplogo->getPosition());
+    Positions[fmodlogo->getID()] = mllm->CCPointToMap(fmodlogo->getPosition());
+    Positions[cocos2dlogo->getID()] = mllm->CCPointToMap(cocos2dlogo->getPosition());
 }
 
 CustomLoadingLayer* CustomLoadingLayer::create() {
