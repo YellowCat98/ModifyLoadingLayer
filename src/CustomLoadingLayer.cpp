@@ -11,13 +11,7 @@
 #include "MLLManager.hpp"
 using namespace geode::prelude;
 
-void touch() {
-    log::info("node touched");
-}
 
-void untouch() {
-    log::info("not touching node");
-}
 
 bool CustomLoadingLayer::init() {
     if (!CCLayer::init()) return false;
@@ -27,10 +21,10 @@ bool CustomLoadingLayer::init() {
 
     auto saveDir = Mod::get()->getSaveDir();
 
-    gdlogo = DragNode::create(std::bind(&touch), std::bind(&untouch), CCSprite::createWithSpriteFrameName("GJ_logo_001.png"));
-    robtoplogo = DragNode::create(std::bind(&touch), std::bind(&untouch), CCSprite::createWithSpriteFrameName("RobTopLogoBig_001.png"));
-    fmodlogo = DragNode::create(std::bind(&touch), std::bind(&untouch), CCSprite::createWithSpriteFrameName("fmodLogo.png"));
-    cocos2dlogo = DragNode::create(std::bind(&touch), std::bind(&untouch), CCSprite::createWithSpriteFrameName("cocos2DxLogo.png"));
+    gdlogo = DragNode::create(CCSprite::createWithSpriteFrameName("GJ_logo_001.png"));
+    robtoplogo = DragNode::create(CCSprite::createWithSpriteFrameName("RobTopLogoBig_001.png"));
+    fmodlogo = DragNode::create(CCSprite::createWithSpriteFrameName("fmodLogo.png"));
+    cocos2dlogo = DragNode::create(CCSprite::createWithSpriteFrameName("cocos2DxLogo.png"));
     bgtexture = CCSprite::create("game_bg_01_001.png");
 
     // gd logo

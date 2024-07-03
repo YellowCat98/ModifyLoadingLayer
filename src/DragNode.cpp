@@ -3,10 +3,8 @@
 
 #include <utility>
 
-bool DragNode::init(std::function<void()> onClick, std::function<void()> onRelease, CCSprite* THEFUCKINGSPRITE) {
+bool DragNode::init(CCSprite* THEFUCKINGSPRITE) {
     if (!CCLayerColor::init()) return false;
-    m_onClick = std::move(onClick);
-    m_onRelease = std::move(onRelease);
     if (THEFUCKINGSPRITE) {
         theSprite = THEFUCKINGSPRITE;
         this->addChild(THEFUCKINGSPRITE);
@@ -35,8 +33,7 @@ bool DragNode::ccTouchBegan(CCTouch* touch, CCEvent*) {
 
     auto const rect = this->boundingBox();
     if (rect.containsPoint(point)) {
-        if (m_onClick)
-            m_onClick();
+        log::info("clicked node");
         return true;
     }
     return false;
@@ -48,8 +45,7 @@ void DragNode::ccTouchMoved(CCTouch* touch, CCEvent*) {
 }
 
 void DragNode::ccTouchEnded(CCTouch* touch, CCEvent*) {
-    if (m_onRelease)
-        m_onRelease();
+    log::info("not clicking node");
 }
 
 void DragNode::setColor(const ccColor3B& color3) {
@@ -60,9 +56,9 @@ void DragNode::setColor(const ccColor3B& color3) {
     }
 }
 
-DragNode* DragNode::create(std::function<void()> onClick, std::function<void()> onRelease, CCSprite* THEFUCKINGSPRITE) {
+DragNode* DragNode::create(CCSprite* THEFUCKINGSPRITE) {
     auto ret = new DragNode;
-    if (ret->init(std::move(onClick), std::move(onRelease), THEFUCKINGSPRITE)) {
+    if (ret->init(THEFUCKINGSPRITE)) {
         ret->autorelease();
         return ret;
     }
