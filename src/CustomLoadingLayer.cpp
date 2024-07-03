@@ -12,11 +12,11 @@
 using namespace geode::prelude;
 
 void touch() {
-    log::info("TOUCHED!");
+    log::info("node touched");
 }
 
 void untouch() {
-    log::info("UNTOUCHED!");
+    log::info("not touching node");
 }
 
 bool CustomLoadingLayer::init() {

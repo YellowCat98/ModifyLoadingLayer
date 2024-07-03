@@ -10,6 +10,7 @@ protected:
     CCMenuItemSpriteExtra* reset;
     CCMenuItemSpriteExtra* restart;
     CCLayerColor* toolbar;
+    CCLayerColor* main;
     bool init();
     void moving(CCObject* sender);
     void moveHidebutton();

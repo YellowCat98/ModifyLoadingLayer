@@ -4,12 +4,12 @@
 
 bool LoadingEditorUI::init() {
     if (!CCLayer::init()) return false;
+    this->setID("LoadingEditorUI");
+
     // <create toolbar>
     toolbar = CCLayerColor::create();
     float top = CCDirector::sharedDirector()->getWinSize().height;
-
     toolbar->setPositionY(top - 20.0f);
-
     auto size = this->getContentSize();
     toolbar->setContentSize({size.width, 20.0f});
     toolbar->setOpacity(150);
@@ -109,7 +109,7 @@ void LoadingEditorUI::Restart(CCObject* sender) {
         "Confirm",
         "This restarts the game,\n"
         "Please save any changes you've done.\n"
-        "Otherwise they will be lost."
+        "Otherwise they will be <cr>lost.</c>\n"
         "Are you sure?",
         "Yes", "No",
         [](auto, bool btn2) {
