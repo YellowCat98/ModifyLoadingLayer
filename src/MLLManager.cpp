@@ -17,7 +17,7 @@ void MLLManager::drag(DragNode* node, CCTouch* touch) {
     }
 }
 
-void MLLManager::rotateAroundPoint(CCSprite* node, CCTouch* touch, const float& radius, const CCPoint& center) {
+void MLLManager::rotateAroundPoint(CCSprite* node, CCTouch* touch, const float& radius, CCPoint center) {
     auto loc = touch->getLocation();
 
     auto direction = loc - center;

@@ -7,13 +7,12 @@ bool RotationControl::init() {
     this->setTouchEnabled(true);
     this->ignoreAnchorPointForPosition(false);
     sprite = getChildOfType<CCSprite>(this, 0);
-    this->setPosition(70.0f, 180.0f);
     log::info("sprite REAL: {}", sprite->getPosition());
     return true;
 }
 
 bool RotationControl::ccTouchBegan(CCTouch* touch, CCEvent* event) {
-    auto const point = sprite->convertToNodeSpace(touch->getLocation());
+    auto const point = sprite->getParent()->convertToNodeSpace(touch->getLocation());
 
     auto const rect = sprite->boundingBox();
     if (rect.containsPoint(point)) {
@@ -22,9 +21,10 @@ bool RotationControl::ccTouchBegan(CCTouch* touch, CCEvent* event) {
     return false;
 }
 
-void RotationControl::ccTouchMoved(CCTouch* touch, CCEvent* event){
+void RotationControl::ccTouchMoved(CCTouch* touch, CCEvent* event) {
     auto mllm = MLLManager::get();
-    mllm->rotateAroundPoint(sprite, touch, 60.0f, this->getPosition());
+    mllm->rotateAroundPoint(sprite, touch, 60.0f, CCPoint(this->getPosition().x - this->getAnchorPoint().x * this->getContentSize().width, this->getPosition().y - this->getAnchorPoint().y * this->getContentSize().height));
+    sprite->setTexture(CCSprite::createWithSpriteFrameName("GJ_rotationControlBtn02_001.png")->getTexture());
 }
 
 RotationControl* RotationControl::create() {

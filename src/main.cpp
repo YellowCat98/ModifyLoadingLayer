@@ -30,8 +30,9 @@ class $modify(MyMenuLayer, MenuLayer) {
 		myButton->setID("mll-editor-button"_spr);
 
 		menu->updateLayout();
-
-		this->addChild(RotationControl::create());
+		auto please = RotationControl::create();
+		please->setPosition(ccp(180, 60));
+		this->addChild(please);
 
 		return true;
 	}
