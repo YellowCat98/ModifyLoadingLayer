@@ -18,8 +18,8 @@ add_library(${PROJECT_NAME} SHARED
     src/MLLManager.hpp
     src/LoadingEditorUI.cpp
     src/LoadingEditorUI.hpp
-    src/RotationControl.hpp
-    src/RotationControl.cpp
+    src/Rotation.cpp
+    src/Rotation.hpp
 )
 
 if (NOT DEFINED ENV{GEODE_SDK})

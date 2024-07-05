@@ -16,19 +16,6 @@ void MLLManager::drag(DragNode* node, CCTouch* touch) {
         node->setPosition(nodePosition);
     }
 }
-void MLLManager::rotateAroundPoint(CCSprite* node, CCTouch* touch, const float& radius, CCPoint center) {
-    auto loc = touch->getLocation();
-
-    center = node->getParent()->convertToNodeSpace(center);
-    auto currentPos = node->getPosition();
-    auto direction = loc - center;
-
-    direction = ccpNormalize(direction);
-
-    auto newPos = center + direction * radius;
-
-    node->setPosition(newPos);
-}
 
 std::map<std::string, float> MLLManager::CCPointToMap(const CCPoint& point) {
     std::map<std::string, float> value;
