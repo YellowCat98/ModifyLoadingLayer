@@ -53,6 +53,7 @@ bool LoadingEditorUI::init() {
     main->setColor({ 0, 0, 0 });
     main->setOpacity(150);
     main->setContentSize({main->getContentSize().width, 120});
+    main->setPositionY(main->getPositionY() - 120.0f);
     this->addChild(main);
 
     // <create menu>
@@ -77,7 +78,22 @@ bool LoadingEditorUI::init() {
 }
 
 void LoadingEditorUI::hideMainF(CCObject* sender) {
-    log::info("{}", sender);
+    hideMain->setScale(0.5f);
+    static bool shown = false;
+    float duration = 0.4;
+    float deltaY;
+
+    if (shown) {
+        deltaY = -120.0f;
+        shown = false;
+    } else {
+        deltaY = 120.0f;
+        shown = true;
+    }
+    
+    auto moveBy = CCMoveBy::create(duration, CCPoint(0, deltaY));
+    auto easeSineOut = CCEaseSineOut::create(moveBy);
+    main->runAction(easeSineOut);
 }
 
 void LoadingEditorUI::moving(CCObject* sender) {
