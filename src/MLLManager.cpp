@@ -7,7 +7,7 @@ bool MLLManager::init() {
     return true;
 }
 
-void MLLManager::drag(DragNode* node, CCTouch* touch) {
+void MLLManager::drag(CCNode* node, CCTouch* touch) {
     auto touchLoc = touch->getLocation();
 
     auto nodeParent = node->getParent();
