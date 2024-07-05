@@ -7,7 +7,7 @@ class Rotation : public CCLayer {
 public:
     CCTouch* thetouch;
     bool init();
-    void rotate(const std::string& nodeID);
+    void rotate(const std::string& nodeID, CCTouch* touch);
 
     bool ccTouchBegan(CCTouch* touch, CCEvent* event);
     void ccTouchMoved(CCTouch* touch, CCEvent* event);

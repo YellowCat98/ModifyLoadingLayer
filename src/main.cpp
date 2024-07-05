@@ -27,10 +27,7 @@ class $modify(MyMenuLayer, MenuLayer) {
 		menu->addChild(myButton);
 		menu->updateLayout();
 		myButton->setID("mll-editor-button"_spr);
-		
 
-		auto ok = Rotation::create();
-		this->addChild(ok);
 
 		return true;
 	}

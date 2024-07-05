@@ -5,6 +5,7 @@
 bool LoadingEditorUI::init() {
     if (!CCLayer::init()) return false;
     this->setID("LoadingEditorUI");
+    winSize = CCDirector::sharedDirector()->getWinSize();
 
     // <create toolbar>
     toolbar = CCLayerColor::create();
@@ -18,7 +19,7 @@ bool LoadingEditorUI::init() {
     menu->setContentSize({size.width, 20.0f});
     toolbar->addChild(menu);
     this->addChild(toolbar);
-    // </create toolbar>
+    
 
     // <create hide toolbar>
     auto moveBtn = CCMenuItemSpriteExtra::create(CCSprite::createWithSpriteFrameName("GJ_arrow_03_001.png"), this, menu_selector(LoadingEditorUI::moving));
@@ -44,8 +45,39 @@ bool LoadingEditorUI::init() {
     restart->setScale(0.4f);
     REMOVE_EASE(restart);
     menu->addChild(restart);
+    // </create restart button>
+    // </create toolbar>
+
+    // </create main>
+    main = CCLayerColor::create();
+    main->setColor({ 0, 0, 0 });
+    main->setOpacity(150);
+    main->setContentSize({main->getContentSize().width, 120});
+    this->addChild(main);
+
+    // <create menu>
+    mainMenu = CCMenu::create();
+    mainMenu->setContentSize(main->getContentSize());
+    mainMenu->setPosition({0.0f, 0.0f});
+    main->addChild(mainMenu);
+    // </create menu>
+
+    // <create hide main button>
+    hideMain = CCMenuItemSpriteExtra::create(CCSprite::createWithSpriteFrameName("GJ_arrow_03_001.png"), this, menu_selector(LoadingEditorUI::hideMainF));
+    REMOVE_EASE(hideMain);
+    hideMain->setRotation(90.0f);
+    hideMain->setScale(0.5f);
+    hideMain->setPosition({winSize.width / 2, (winSize.height / 2) - 30});
+    mainMenu->addChild(hideMain);
+    // </create hide main button>
+    
+    // </create main>
 
     return true;
+}
+
+void LoadingEditorUI::hideMainF(CCObject* sender) {
+    log::info("{}", sender);
 }
 
 void LoadingEditorUI::moving(CCObject* sender) {

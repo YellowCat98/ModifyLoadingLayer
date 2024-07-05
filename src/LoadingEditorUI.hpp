@@ -11,11 +11,15 @@ protected:
     CCMenuItemSpriteExtra* restart;
     CCLayerColor* toolbar;
     CCLayerColor* main;
+    CCMenu* mainMenu;
+    CCSize winSize;
+    CCMenuItemSpriteExtra* hideMain;
     bool init();
     void moving(CCObject* sender);
     void moveHidebutton();
     void Reset(CCObject* sender);
     void Restart(CCObject* sender);
+    void hideMainF(CCObject* sender);
     
 public:
     static LoadingEditorUI* create();

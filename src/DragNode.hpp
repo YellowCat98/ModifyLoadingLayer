@@ -9,8 +9,6 @@ protected:
 
     bool init(CCSprite* THEFUCKINGSPRITE);
 
-
-
     bool ccTouchBegan(CCTouch* touch, CCEvent*) override;
     void ccTouchMoved(CCTouch* touch, CCEvent*) override;
     void ccTouchEnded(CCTouch* touch, CCEvent*) override;
