@@ -21,11 +21,24 @@ bool CustomLoadingLayer::init() {
 
     auto saveDir = Mod::get()->getSaveDir();
 
+    mllm = MLLManager::get();
+    mllm->setID("manager");
+
+    auto editorui = LoadingEditorUI::create();
+    editorui->mllm = mllm;
+    this->addChild(editorui);
+
+
     gdlogo = DragNode::create(CCSprite::createWithSpriteFrameName("GJ_logo_001.png"));
     robtoplogo = DragNode::create(CCSprite::createWithSpriteFrameName("RobTopLogoBig_001.png"));
     fmodlogo = DragNode::create(CCSprite::createWithSpriteFrameName("fmodLogo.png"));
     cocos2dlogo = DragNode::create(CCSprite::createWithSpriteFrameName("cocos2DxLogo.png"));
     bgtexture = CCSprite::create("game_bg_01_001.png");
+
+    gdlogo->mllm = mllm;
+    robtoplogo->mllm = mllm;
+    fmodlogo->mllm = mllm;
+    cocos2dlogo->mllm = mllm;
 
     // gd logo
 
@@ -74,9 +87,7 @@ bool CustomLoadingLayer::init() {
 
     // </reverseengineeringloadinglayer>
 
-    auto editorui = LoadingEditorUI::create();
-    this->addChild(editorui);
-    mllm = MLLManager::get();
+    
     this->addChild(mllm); // might need for later
     DefaultPositions[gdlogo->getID()] = mllm->CCPointToMap(CCPoint(283.5, 160.0));
     DefaultPositions[robtoplogo->getID()] = mllm->CCPointToMap(CCPoint(283.4, 240.0));

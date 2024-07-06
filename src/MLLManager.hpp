@@ -1,7 +1,6 @@
 // handles a lot of stuff!
 #pragma once
 #include <Geode/Geode.hpp>
-#include "DragNode.hpp"
 
 using namespace geode::prelude;
 
@@ -15,6 +14,8 @@ protected:
     bool init();
 public:
     std::string currentSelectedNode;
+    bool canMoveNode;
+
     void drag(CCNode* node, CCTouch* touch);
     std::map<std::string, float> CCPointToMap(const CCPoint& point);
     static MLLManager* get();

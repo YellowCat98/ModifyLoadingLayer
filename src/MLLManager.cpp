@@ -3,7 +3,6 @@
 
 bool MLLManager::init() {
     if (!CCNode::init()) return false;
-
     return true;
 }
 

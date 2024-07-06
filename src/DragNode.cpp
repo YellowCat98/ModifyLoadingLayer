@@ -1,8 +1,6 @@
 #include "DragNode.hpp" // already includes geode and geode ns
 #include "MLLManager.hpp"
 
-#include <utility>
-
 bool DragNode::init(CCSprite* THEFUCKINGSPRITE) {
     if (!CCLayerColor::init()) return false;
     if (THEFUCKINGSPRITE) {
@@ -18,11 +16,8 @@ bool DragNode::init(CCSprite* THEFUCKINGSPRITE) {
         return false;
     }
 
-    
-    
     this->setTouchMode(kCCTouchesOneByOne);
     this->setTouchEnabled(true);
-
     this->ignoreAnchorPointForPosition(false);
     
     return true;
@@ -33,15 +28,20 @@ bool DragNode::ccTouchBegan(CCTouch* touch, CCEvent*) {
 
     auto const rect = this->boundingBox();
     if (rect.containsPoint(point)) {
-        log::info("clicked node");
+        mllm->currentSelectedNode = this->getID();
         return true;
     }
     return false;
 }
 
 void DragNode::ccTouchMoved(CCTouch* touch, CCEvent*) {
-    MLLManager* mmlm = MLLManager::get();
-    mmlm->drag(this, touch);
+    if (mllm->canMoveNode) {
+        mllm->drag(this, touch);
+        log::info("hello");
+    } else {
+        log::info("a");
+    }
+    
 }
 
 void DragNode::ccTouchEnded(CCTouch* touch, CCEvent*) {

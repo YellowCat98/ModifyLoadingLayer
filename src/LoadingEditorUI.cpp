@@ -71,10 +71,19 @@ bool LoadingEditorUI::init() {
     hideMain->setPosition({winSize.width / 2, (winSize.height / 2) - 30});
     mainMenu->addChild(hideMain);
     // </create hide main button>
-    
+
+    // <create main buttons>
+    selectMove = CCMenuItemToggler::create(CCSprite::createWithSpriteFrameName("GJ_arrow_03_001.png"), CCSprite::createWithSpriteFrameName("GJ_arrow_01_001.png"), this, menu_selector(LoadingEditorUI::canMoveF));
+    mainMenu->addChild(selectMove);
+    // </create main buttons>
+
     // </create main>
 
     return true;
+}
+
+void LoadingEditorUI::canMoveF(CCObject* sender) {
+    mllm->canMoveNode = !mllm->canMoveNode;
 }
 
 void LoadingEditorUI::hideMainF(CCObject* sender) {
