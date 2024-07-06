@@ -1,11 +1,12 @@
 #include "LoadingEditorUI.hpp"
-#include "MLLManager.hpp" // for CCMENUISE_REMOVE_EASE
+#include "MLLManager.hpp" // for literally most things here
 #include "CustomLoadingLayer.hpp"
 
 bool LoadingEditorUI::init() {
 	if (!CCLayer::init()) return false;
 	this->setID("LoadingEditorUI");
 	winSize = CCDirector::sharedDirector()->getWinSize();
+	this->setZOrder(1.0f);
 
 	// <create toolbar>
 	toolbar = CCLayerColor::create();

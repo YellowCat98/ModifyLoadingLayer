@@ -19,8 +19,33 @@ bool DragNode::init(CCSprite* THEFUCKINGSPRITE) {
 	this->setTouchMode(kCCTouchesOneByOne);
 	this->setTouchEnabled(true);
 	this->ignoreAnchorPointForPosition(false);
-	
+
+	selectedDisplay = CCLayerColor::create();
+	selectedDisplay->setColor({0, 0, 0});
+	selectedDisplay->setOpacity(150.0f);
+	selectedDisplay->setContentSize(this->getContentSize());
+	selectedDisplay->setVisible(false);
+	selectedDisplay->setZOrder(-1.0f);
+	this->addChild(selectedDisplay);
 	return true;
+}
+
+void DragNode::selectNode(const std::string& nodeID) {
+	if (mllm->currentSelectedNode == nodeID) {
+		return;
+	}
+
+	DragNode* previousNode = static_cast<DragNode*>(this->getParent()->getChildByID(mllm->currentSelectedNode));
+	if (previousNode) {
+		previousNode->selectedDisplay->setVisible(false);
+	}
+
+	auto newNode = static_cast<DragNode*>(this->getParent()->getChildByID(nodeID));
+	if (newNode) {
+		newNode->selectedDisplay->setVisible(true);
+	}
+
+	mllm->currentSelectedNode = nodeID;
 }
 
 bool DragNode::ccTouchBegan(CCTouch* touch, CCEvent*) {
@@ -28,7 +53,7 @@ bool DragNode::ccTouchBegan(CCTouch* touch, CCEvent*) {
 
 	auto const rect = this->boundingBox();
 	if (rect.containsPoint(point)) {
-		mllm->currentSelectedNode = this->getID();
+		this->selectNode(this->getID());
 		return true;
 	}
 	return false;
@@ -37,15 +62,12 @@ bool DragNode::ccTouchBegan(CCTouch* touch, CCEvent*) {
 void DragNode::ccTouchMoved(CCTouch* touch, CCEvent*) {
 	if (mllm->canMoveNode) {
 		mllm->drag(this, touch);
-		log::info("hello");
-	} else {
-		log::info("a");
 	}
 	
 }
 
 void DragNode::ccTouchEnded(CCTouch* touch, CCEvent*) {
-	log::info("not clicking node");
+	
 }
 
 void DragNode::setColor(const ccColor3B& color3) {
