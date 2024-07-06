@@ -33,14 +33,14 @@ class $modify(MyMenuLayer, MenuLayer) {
 	}
 
 	void onMyButton(CCObject*) {
-    auto scene = cocos2d::CCScene::create();
+	auto scene = cocos2d::CCScene::create();
 
 	
-    auto loadinglayer = CustomLoadingLayer::create();
+	auto loadinglayer = CustomLoadingLayer::create();
 
 
-    scene->addChild(loadinglayer);
+	scene->addChild(loadinglayer);
 
-    CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5f, scene));
+	CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5f, scene));
 	}
 };
