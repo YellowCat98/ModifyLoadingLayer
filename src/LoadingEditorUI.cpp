@@ -1,12 +1,15 @@
 #include "LoadingEditorUI.hpp"
 #include "MLLManager.hpp" // for literally most things here
 #include "CustomLoadingLayer.hpp"
+#include "Rotation.hpp"
 
 bool LoadingEditorUI::init() {
 	if (!CCLayer::init()) return false;
 	this->setID("LoadingEditorUI");
 	winSize = CCDirector::sharedDirector()->getWinSize();
 	this->setZOrder(1.0f);
+	buttonArray = CCArray::create();
+	canRotate = false;
 
 	// <create toolbar>
 	toolbar = CCLayerColor::create();
@@ -72,15 +75,52 @@ bool LoadingEditorUI::init() {
 	hideMain->setPosition({winSize.width / 2, (winSize.height / 2) - 30});
 	mainMenu->addChild(hideMain);
 	// </create hide main button>
-
+	// <create button sprites>
+	// <create move button sprite>
+	auto moveBtnSpr = ButtonSprite::create(CCSprite::createWithSpriteFrameName("MLL_DragBtn.png"_spr), 100, true, 50.0f, "GJ_button_01.png", 1.25f);
+	auto moveBtnSelectedSpr = ButtonSprite::create(CCSprite::createWithSpriteFrameName("MLL_DragBtn.png"_spr), 100, true, 50.0f, "GJ_button_01.png", 1.25f);
+	moveBtnSelectedSpr->setColor({128, 128, 128});
+	// </create move button sprite>
+	auto brainrotBtnSpr = ButtonSprite::create(CCSprite::createWithSpriteFrameName("edit_ccwBtn_001.png"), 100, true, 50.0f, "GJ_button_01.png", 1.25f);
+	auto brainrotBtnSprSelected = ButtonSprite::create(CCSprite::createWithSpriteFrameName("edit_ccwBtn_001.png"), 100, true, 50.0f, "GJ_button_01.png", 1.25f);
+	brainrotBtnSprSelected->setColor({128, 128, 128});
+	// </create button sprites>
 	// <create main buttons>
-	selectMove = CCMenuItemToggler::create(CCSprite::createWithSpriteFrameName("GJ_arrow_03_001.png"), CCSprite::createWithSpriteFrameName("GJ_arrow_01_001.png"), this, menu_selector(LoadingEditorUI::canMoveF));
-	mainMenu->addChild(selectMove);
+
+	// <create move button>
+	selectMove = CCMenuItemToggler::create(moveBtnSpr, moveBtnSelectedSpr, this, menu_selector(LoadingEditorUI::canMoveF));
+	buttonArray->addObject(selectMove);
+	// </create move button>
+
+	// <create rotate button>
+	brainRot = CCMenuItemToggler::create(brainrotBtnSpr, brainrotBtnSprSelected, this, menu_selector(LoadingEditorUI::canRotateF));
+	buttonArray->addObject(brainRot);
 	// </create main buttons>
+
+	// <create editbuttonbar>
+	auto buttonBar = ListButtonPage::create(buttonArray, {400, -290}, 15, 15, 25.0f, 25.0f, 25.0f);
+	main->addChild(buttonBar);
+	// </create editbuttonbar>
 
 	// </create main>
 
 	return true;
+}
+
+void LoadingEditorUI::canRotateF(CCObject* sender) {
+	canRotate = !canRotate;
+	if (mllm->currentSelectedNode.empty()) {
+		Notification::create("No node selected.")->show();
+	}
+	if (canRotate) {
+		r = Rotation::get(mllm->currentSelectedNode);
+		this->addChild(r);
+	} else {
+		r->removeFromParent();
+		r = nullptr;
+	}
+	log::info("can rotate: {}", canRotate);
+	
 }
 
 void LoadingEditorUI::canMoveF(CCObject* sender) {
@@ -156,6 +196,7 @@ void LoadingEditorUI::Reset(CCObject* sender) {
 			if (!btn2) {
 				auto customloadinglayer = static_cast<CustomLoadingLayer*>(this->getParent());
 				customloadinglayer->resetPosition();
+				customloadinglayer->resetRotation();
 			}
 		}
 	);

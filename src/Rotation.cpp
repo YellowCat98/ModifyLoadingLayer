@@ -1,7 +1,7 @@
 #include "Rotation.hpp"
 #include "MLLManager.hpp"
 
-bool Rotation::init() {
+bool Rotation::init(std::string theNodeID) {
 	if (!CCLayer::init()) return false;
 	CCSprite* sprite;
 	this->addChild(sprite = CCSprite::createWithSpriteFrameName("GJ_rotationControlBtn01_001.png"));
@@ -9,13 +9,15 @@ bool Rotation::init() {
 	this->setTouchMode(kCCTouchesOneByOne);
 	this->setTouchEnabled(true);
 	this->ignoreAnchorPointForPosition(false);
-		this->addChild(sprite);
-		auto sprSize = sprite->getContentSize();
-		sprite->setID("the-sprite");
-		this->setContentSize(sprSize);
-		auto size = this->getContentSize();
-		auto center = CCPoint(size.width / 2, size.height / 2);
-		sprite->setPosition(center);
+	this->addChild(sprite);
+	auto sprSize = sprite->getContentSize();
+	sprite->setID("the-sprite");
+	this->setContentSize(sprSize);
+	auto size = this->getContentSize();
+	auto center = CCPoint(size.width / 2, size.height / 2);
+	sprite->setPosition(center);
+
+	nodeID = theNodeID;
 	return true;
 }
 
@@ -32,12 +34,13 @@ bool Rotation::ccTouchBegan(CCTouch* touch, CCEvent* event) {
 
 void Rotation::ccTouchMoved(CCTouch* touch, CCEvent* event) {
 	MLLManager::get()->drag(this, touch);
-	this->rotate("main-title", touch);
+	this->rotate(nodeID, touch);
 }
 
 void Rotation::rotate(const std::string& nodeID, CCTouch* touch) {
 	auto loc = touch->getLocation();
-	auto node = this->getParent()->getChildByIDRecursive(nodeID);
+	auto scene = CCDirector::sharedDirector()->getRunningScene();
+	auto node = scene->getChildByIDRecursive(nodeID);
 	float dx = loc.x - node->getPositionX();
 	float dy = loc.y - node->getPositionY();
 	float angle = atan2(dx, dy);
@@ -46,10 +49,10 @@ void Rotation::rotate(const std::string& nodeID, CCTouch* touch) {
 	node->setRotation(angle);
 }
 
-Rotation* Rotation::create() {
+Rotation* Rotation::get(std::string theNodeID) {
 	auto ret = new Rotation();
 
-	if (ret->init()) {
+	if (ret->init(theNodeID)) {
 		ret->autorelease();
 		return ret;
 	}

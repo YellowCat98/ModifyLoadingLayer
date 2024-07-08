@@ -94,6 +94,13 @@ bool CustomLoadingLayer::init() {
 	DefaultPositions[fmodlogo->getID()] = mllm->CCPointToMap(CCPoint(533.0, 33.0));
 	DefaultPositions[cocos2dlogo->getID()] = mllm->CCPointToMap(CCPoint(533.0, 13.0));
 
+	DefaultBrainrot[gdlogo->getID()] = 0.0f;
+	DefaultBrainrot[robtoplogo->getID()] = 0.0f;
+	DefaultBrainrot[fmodlogo->getID()] = 0.0f;
+	DefaultBrainrot[cocos2dlogo->getID()] = 0.0f;
+
+	this->getPositions();
+
 	return true;
 }
 
@@ -108,12 +115,46 @@ void CustomLoadingLayer::resetPosition() {
 	cocos2dlogo->setPosition(cocos2dlogopos);
 }
 
+void CustomLoadingLayer::resetRotation() {
+	for (const auto& pos : DefaultBrainrot) {
+		this->getChildByID(pos.first)->setRotation(pos.second);
+	}
+}
+
 void CustomLoadingLayer::getPositions() {
-	mllm = MLLManager::get();
-	Positions[gdlogo->getID()] = mllm->CCPointToMap(gdlogo->getPosition());
-	Positions[robtoplogo->getID()] = mllm->CCPointToMap(robtoplogo->getPosition());
-	Positions[fmodlogo->getID()] = mllm->CCPointToMap(fmodlogo->getPosition());
-	Positions[cocos2dlogo->getID()] = mllm->CCPointToMap(cocos2dlogo->getPosition());
+	Positions = matjson::parse(fmt::format(R"(
+{{
+	"{}": {{"x": {}, "y": {} }},
+	"{}": {{"x": {}, "y": {} }},
+	"{}": {{"x": {}, "y": {} }},
+	"{}": {{"x": {}, "y": {} }}
+}}
+)", gdlogo->getID(), gdlogo->getPositionX(), gdlogo->getPositionY(),
+	robtoplogo->getID(), robtoplogo->getPositionX(), robtoplogo->getPositionY(),
+	fmodlogo->getID(), fmodlogo->getPositionX(), fmodlogo->getPositionY(),
+	cocos2dlogo->getID(), cocos2dlogo->getPositionX(), cocos2dlogo->getPositionY()
+));
+	
+	log::info("{}", Positions.dump());
+
+}
+
+void CustomLoadingLayer::getRotations() {
+	Rotations = matjson::parse(fmt::format(R"(
+{{
+	"{}": {},
+	"{}": {},
+	"{}": {},
+	"{}": {}
+}}
+)", gdlogo->getID(), gdlogo->getRotation(),
+	robtoplogo->getID(), robtoplogo->getRotation(),
+	fmodlogo->getID(), fmodlogo->getRotation(),
+	cocos2dlogo->getID(), cocos2dlogo->getRotation()
+));
+
+	log::info("{}", Rotations.dump());
+
 }
 
 CustomLoadingLayer* CustomLoadingLayer::create() {

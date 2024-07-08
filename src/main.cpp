@@ -28,6 +28,12 @@ class $modify(MyMenuLayer, MenuLayer) {
 		menu->updateLayout();
 		myButton->setID("mll-editor-button"_spr);
 
+		auto array = CCArray::create();
+		array->addObject(this->getChildByIDRecursive("achievements-button"));
+		array->addObject(this->getChildByIDRecursive("settings-button"));
+
+		auto hmm = ListButtonPage::create(array, {100, 100}, 15, 15, 25.0f, 25.0f, 25.0f);
+		this->addChild(hmm);
 
 		return true;
 	}

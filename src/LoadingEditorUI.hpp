@@ -1,6 +1,7 @@
 #pragma once
 #include <Geode/Geode.hpp>
 #include "MLLManager.hpp"
+#include "Rotation.hpp"
 
 using namespace geode::prelude;
 
@@ -17,6 +18,10 @@ protected:
 	CCSize winSize;
 	CCMenuItemSpriteExtra* hideMain;
 	CCMenuItemToggler* selectMove;
+	CCMenuItemToggler* brainRot;
+	CCArray* buttonArray;
+	Rotation* r;
+	bool canRotate;
 	bool init();
 	void moving(CCObject* sender);
 	void moveHidebutton();
@@ -24,6 +29,7 @@ protected:
 	void Restart(CCObject* sender);
 	void hideMainF(CCObject* sender);
 	void canMoveF(CCObject* sender);
+	void canRotateF(CCObject* sender);
 	
 public:
 	static LoadingEditorUI* create();

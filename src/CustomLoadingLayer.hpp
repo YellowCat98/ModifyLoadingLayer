@@ -2,6 +2,7 @@
 #include <Geode/Geode.hpp>
 #include "DragNode.hpp"
 #include "MLLManager.hpp"
+#include <matjson.hpp>
 
 using namespace geode::prelude;
 
@@ -14,11 +15,15 @@ public:
 	CCSprite* bgtexture;
 	MLLManager* mllm;
 	std::map<std::string, std::map<std::string, float>> DefaultPositions;
-	std::map<std::string, std::map<std::string, float>> Positions;
+	std::map<std::string, float> DefaultBrainrot;
+	matjson::Value Positions;
+	matjson::Value Rotations;
 
 	static CustomLoadingLayer* create();
 	void resetPosition();
+	void resetRotation();
 	void getPositions();
+	void getRotations();
 private:
 	bool init() override;
 };
