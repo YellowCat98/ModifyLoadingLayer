@@ -2,4 +2,4 @@
 
 - A mod that lets you modify the loading screen
 
-Used TextureLDR mod to help implementing the dragging system.
+(i took a look at TextureLDR's source code to implement dragging.)
