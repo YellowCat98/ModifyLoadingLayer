@@ -108,11 +108,11 @@ bool LoadingEditorUI::init() {
 }
 
 void LoadingEditorUI::canRotateF(CCObject* sender) {
-	canRotate = !canRotate;
 	if (mllm->currentSelectedNode.empty()) {
 		Notification::create("No node selected.")->show();
 		return;
 	}
+	canRotate = !canRotate;
 	if (canRotate) {
 		r = Rotation::get(mllm->currentSelectedNode);
 		this->addChild(r);
