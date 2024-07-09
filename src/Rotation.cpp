@@ -18,6 +18,10 @@ bool Rotation::init(std::string theNodeID) {
 	sprite->setPosition(center);
 
 	nodeID = theNodeID;
+
+	label = CCLabelBMFont::create("", "bigFont.fnt");
+	label->setPosition({sprite->getPositionX(), (sprite->getPositionY() + 30)});
+	this->addChild(label);
 	return true;
 }
 
@@ -26,7 +30,6 @@ bool Rotation::ccTouchBegan(CCTouch* touch, CCEvent* event) {
 
 	auto const rect = this->boundingBox();
 	if (rect.containsPoint(point)) {
-		log::info("clicked node");
 		return true;
 	}
 	return false;
@@ -45,8 +48,8 @@ void Rotation::rotate(const std::string& nodeID, CCTouch* touch) {
 	float dy = loc.y - node->getPositionY();
 	float angle = atan2(dx, dy);
 	angle = CC_RADIANS_TO_DEGREES(angle) - 90;
-
 	node->setRotation(angle);
+	label->setString(std::to_string(angle).c_str());
 }
 
 Rotation* Rotation::get(std::string theNodeID) {

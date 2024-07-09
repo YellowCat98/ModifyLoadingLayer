@@ -21,6 +21,7 @@ protected:
 	CCMenuItemToggler* brainRot;
 	CCArray* buttonArray;
 	Rotation* r;
+	Slider* rSlider;
 	bool canRotate;
 	bool init();
 	void moving(CCObject* sender);

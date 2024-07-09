@@ -109,7 +109,7 @@ bool LoadingEditorUI::init() {
 
 void LoadingEditorUI::canRotateF(CCObject* sender) {
 	if (mllm->currentSelectedNode.empty()) {
-		Notification::create("No node selected.")->show();
+		Notification::create("Select a node first!", CCSprite::createWithSpriteFrameName("GJ_deleteIcon_001.png"))->show();
 		return;
 	}
 	canRotate = !canRotate;
@@ -120,8 +120,7 @@ void LoadingEditorUI::canRotateF(CCObject* sender) {
 		r->removeFromParent();
 		r = nullptr;
 	}
-	log::info("can rotate: {}", canRotate);
-	
+
 }
 
 void LoadingEditorUI::canMoveF(CCObject* sender) {
@@ -204,6 +203,10 @@ void LoadingEditorUI::Reset(CCObject* sender) {
 }
 
 void LoadingEditorUI::Restart(CCObject* sender) {
+	if (Mod::get()->getSettingValue<bool>("disable-restart-confirmation")) {
+		utils::game::restart();
+		return; // will this even do anything
+	}
 	restart->setScale(0.4f);
 	geode::createQuickPopup(
 		"Confirm",
