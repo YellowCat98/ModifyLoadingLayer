@@ -80,9 +80,10 @@ bool LoadingEditorUI::init() {
 
 	// <create move button sprite>
 
-	auto moveBtnSpr = ButtonSprite::create(CCSprite::createWithSpriteFrameName("MLL_DragBtn.png"_spr), 100, true, 50.0f, "GJ_button_01.png", 1.25f);
+	auto moveSprite = ButtonSprite::create(CCSprite::createWithSpriteFrameName("MLL_DragBtn.png"_spr), 100, true, 50.0f, "GJ_button_01.png", 1.25f);
 	auto moveBtnSelectedSpr = ButtonSprite::create(CCSprite::createWithSpriteFrameName("MLL_DragBtn.png"_spr), 100, true, 50.0f, "GJ_button_01.png", 1.25f);
 	moveBtnSelectedSpr->setColor({128, 128, 128});
+	moveSprite->setColor({123,123,123});
 
 	// </create move button sprite>
 
@@ -102,12 +103,18 @@ bool LoadingEditorUI::init() {
 
 	// </create scale button sprite>
 
+	// <create hide button sprite>
+
+	auto hideSpr = ButtonSprite::create(CCSprite::createWithSpriteFrameName("MLL_HideBtn.png"_spr), 100, true, 50.0f, "GJ_button_01.png", 1.125f);
+	auto hideSprS = ButtonSprite::create(CCSprite::createWithSpriteFrameName("MLL_HideBtn.png"_spr), 100, true, 50.0f, "GJ_button_01.png", 1.125f);
+	hideSprS->setColor({128, 128, 128});
+
 	// </create button sprites>
 
 	// <create main buttons>
 
 	// <create move button>
-	selectMove = CCMenuItemToggler::create(moveBtnSpr, moveBtnSelectedSpr, this, menu_selector(LoadingEditorUI::canMoveF));
+	selectMove = CCMenuItemToggler::create(moveSprite, moveBtnSelectedSpr, this, menu_selector(LoadingEditorUI::canMoveF));
 	buttonArray->addObject(selectMove);
 	// </create move button>
 
@@ -119,6 +126,13 @@ bool LoadingEditorUI::init() {
 	// <create rotate button>
 	brainRot = CCMenuItemToggler::create(brainrotBtnSpr, brainrotBtnSprSelected, this, menu_selector(LoadingEditorUI::canRotateF));
 	buttonArray->addObject(brainRot);
+	// </create rotate button>
+
+	// <create hide button>
+	hideBtn = CCMenuItemToggler::create(hideSpr, hideSprS, this, menu_selector(LoadingEditorUI::onHide));
+	buttonArray->addObject(hideBtn);
+	// </create hide button>
+
 	// </create main buttons>
 
 	// <create editbuttonbar>
@@ -131,7 +145,26 @@ bool LoadingEditorUI::init() {
 	return true;
 }
 
+void LoadingEditorUI::onHide(CCObject* sender) {
+	if (mllm->currentSelectedNode.empty()) {
+		Notification::create("Select a node first!", CCSprite::createWithSpriteFrameName("GJ_deleteIcon_001.png"))->show();
+		return;
+	}
+	isNotHidden = !isNotHidden;
+	auto scene = CCDirector::sharedDirector()->getRunningScene();
+	auto node = scene->getChildByIDRecursive(mllm->currentSelectedNode);
+	if (isNotHidden) {
+		node->getChildByID("the-sprite")->setVisible(false);
+	} else {
+		node->getChildByID("the-sprite")->setVisible(true);
+	}
+}
+
 void LoadingEditorUI::onScale(CCObject* sender) {
+	if (mllm->currentSelectedNode.empty()) {
+		Notification::create("Select a node first!", CCSprite::createWithSpriteFrameName("GJ_deleteIcon_001.png"))->show();
+		return;
+	}
 	canScale = !canScale;
 	
 	if (canScale) {

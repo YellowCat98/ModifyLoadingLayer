@@ -20,11 +20,13 @@ protected:
 	CCMenuItemToggler* selectMove;
 	CCMenuItemToggler* brainRot;
 	CCMenuItemToggler* scale;
+	CCMenuItemToggler* hideBtn;
 	CCArray* buttonArray;
 	Rotation* r;
 	Scale* scaleInstance;
 	bool canRotate;
 	bool canScale;
+	bool isNotHidden;
 	bool init();
 	void moving(CCObject* sender);
 	void moveHidebutton();
@@ -34,6 +36,7 @@ protected:
 	void canMoveF(CCObject* sender);
 	void canRotateF(CCObject* sender);
 	void onScale(CCObject* sender);
+	void onHide(CCObject* sender);
 	
 public:
 	static LoadingEditorUI* create();
