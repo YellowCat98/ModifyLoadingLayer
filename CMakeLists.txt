@@ -20,6 +20,8 @@ add_library(${PROJECT_NAME} SHARED
     src/LoadingEditorUI.hpp
     src/Rotation.cpp
     src/Rotation.hpp
+    src/Scale.cpp
+    src/Scale.hpp
 )
 
 if (NOT DEFINED ENV{GEODE_SDK})

@@ -2,6 +2,7 @@
 #include "MLLManager.hpp" // for literally most things here
 #include "CustomLoadingLayer.hpp"
 #include "Rotation.hpp"
+#include "Scale.hpp"
 
 bool LoadingEditorUI::init() {
 	if (!CCLayer::init()) return false;
@@ -76,21 +77,44 @@ bool LoadingEditorUI::init() {
 	mainMenu->addChild(hideMain);
 	// </create hide main button>
 	// <create button sprites>
+
 	// <create move button sprite>
+
 	auto moveBtnSpr = ButtonSprite::create(CCSprite::createWithSpriteFrameName("MLL_DragBtn.png"_spr), 100, true, 50.0f, "GJ_button_01.png", 1.25f);
 	auto moveBtnSelectedSpr = ButtonSprite::create(CCSprite::createWithSpriteFrameName("MLL_DragBtn.png"_spr), 100, true, 50.0f, "GJ_button_01.png", 1.25f);
 	moveBtnSelectedSpr->setColor({128, 128, 128});
+
 	// </create move button sprite>
-	auto brainrotBtnSpr = ButtonSprite::create(CCSprite::createWithSpriteFrameName("edit_ccwBtn_001.png"), 100, true, 50.0f, "GJ_button_01.png", 1.25f);
-	auto brainrotBtnSprSelected = ButtonSprite::create(CCSprite::createWithSpriteFrameName("edit_ccwBtn_001.png"), 100, true, 50.0f, "GJ_button_01.png", 1.25f);
+
+	// <create rotate button sprite>
+
+	auto brainrotBtnSpr = ButtonSprite::create(CCSprite::createWithSpriteFrameName("MLL_rotateBtn.png"_spr), 100, true, 50.0f, "GJ_button_01.png", 1.25f);
+	auto brainrotBtnSprSelected = ButtonSprite::create(CCSprite::createWithSpriteFrameName("MLL_rotateBtn.png"_spr), 100, true, 50.0f, "GJ_button_01.png", 1.25f);
 	brainrotBtnSprSelected->setColor({128, 128, 128});
+
+	// </create rotate button sprite>
+
+	// <create scale button sprite>
+
+	auto scaleSpr = ButtonSprite::create(CCSprite::createWithSpriteFrameName("edit_scaleXYBtn_001.png"), 100, true, 50.0f, "GJ_button_01.png", 1.25f);
+	auto scaleSprS = ButtonSprite::create(CCSprite::createWithSpriteFrameName("edit_scaleXYBtn_001.png"), 100, true, 50.0f, "GJ_button_01.png", 1.25f);
+	scaleSprS->setColor({128, 128, 128});
+
+	// </create scale button sprite>
+
 	// </create button sprites>
+
 	// <create main buttons>
 
 	// <create move button>
 	selectMove = CCMenuItemToggler::create(moveBtnSpr, moveBtnSelectedSpr, this, menu_selector(LoadingEditorUI::canMoveF));
 	buttonArray->addObject(selectMove);
 	// </create move button>
+
+	// <create scale button>
+	scale = CCMenuItemToggler::create(scaleSpr, scaleSprS, this, menu_selector(LoadingEditorUI::onScale));
+	buttonArray->addObject(scale);
+	// </create scale button>
 
 	// <create rotate button>
 	brainRot = CCMenuItemToggler::create(brainrotBtnSpr, brainrotBtnSprSelected, this, menu_selector(LoadingEditorUI::canRotateF));
@@ -105,6 +129,18 @@ bool LoadingEditorUI::init() {
 	// </create main>
 
 	return true;
+}
+
+void LoadingEditorUI::onScale(CCObject* sender) {
+	canScale = !canScale;
+	
+	if (canScale) {
+		scaleInstance = Scale::create(mllm->currentSelectedNode);
+		this->addChild(scaleInstance);
+	} else {
+		scaleInstance->removeFromParent();
+		scaleInstance = nullptr;
+	}
 }
 
 void LoadingEditorUI::canRotateF(CCObject* sender) {

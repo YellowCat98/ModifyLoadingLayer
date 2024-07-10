@@ -7,6 +7,7 @@
 #include "DragNode.hpp"
 #include "MLLManager.hpp"
 #include "Rotation.hpp"
+#include "Scale.hpp"
 
 using namespace geode::prelude;
 

@@ -2,7 +2,7 @@
 #include <Geode/Geode.hpp>
 #include "MLLManager.hpp"
 #include "Rotation.hpp"
-
+#include "Scale.hpp"
 using namespace geode::prelude;
 
 class LoadingEditorUI : public CCLayer {
@@ -19,10 +19,12 @@ protected:
 	CCMenuItemSpriteExtra* hideMain;
 	CCMenuItemToggler* selectMove;
 	CCMenuItemToggler* brainRot;
+	CCMenuItemToggler* scale;
 	CCArray* buttonArray;
 	Rotation* r;
-	Slider* rSlider;
+	Scale* scaleInstance;
 	bool canRotate;
+	bool canScale;
 	bool init();
 	void moving(CCObject* sender);
 	void moveHidebutton();
@@ -31,6 +33,7 @@ protected:
 	void hideMainF(CCObject* sender);
 	void canMoveF(CCObject* sender);
 	void canRotateF(CCObject* sender);
+	void onScale(CCObject* sender);
 	
 public:
 	static LoadingEditorUI* create();
