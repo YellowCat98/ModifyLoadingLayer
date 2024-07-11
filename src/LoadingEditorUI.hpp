@@ -40,6 +40,7 @@ protected:
 	void onScale(CCObject* sender);
 	void onHide(CCObject* sender);
 	void onChangeSprite(CCObject* sender);
+	CCTexture2D* texture;
 public:
 	static LoadingEditorUI* create();
 	MLLManager* mllm;

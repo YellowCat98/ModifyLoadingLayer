@@ -3,6 +3,10 @@
 
 bool MLLManager::init() {
 	if (!CCNode::init()) return false;
+	temp = Mod::get()->getConfigDir() / "temp";
+	if (!std::filesystem::exists(temp)) {
+		std::filesystem::create_directory(temp);
+	}
 	return true;
 }
 

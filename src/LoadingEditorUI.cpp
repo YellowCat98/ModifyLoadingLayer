@@ -11,10 +11,6 @@ bool LoadingEditorUI::init() {
 	this->setZOrder(1.0f);
 	buttonArray = CCArray::create();
 	canRotate = false;
-	temp = Mod::get()->getConfigDir() / "temp";
-	if (!std::filesystem::exists(temp)) {
-		std::filesystem::create_directory(temp);
-	}
 
 	// <create toolbar>
 	toolbar = CCLayerColor::create();
@@ -178,6 +174,7 @@ void LoadingEditorUI::onChangeSprite(CCObject* sender) {
 		Notification::create("Select a node first!", CCSprite::createWithSpriteFrameName("GJ_deleteIcon_001.png"))->show();
 		return;
 	}
+
 	std::unordered_set<std::string> thefiles;
 	thefiles.insert("*.png");
 	utils::file::FilePickOptions::Filter idk;
@@ -197,17 +194,28 @@ void LoadingEditorUI::onChangeSprite(CCObject* sender) {
 				return;
 			}
 			auto path = result->unwrap();
-			auto targetDir = temp / (mllm->currentSelectedNode + ".png");
+			auto targetDir = mllm->temp / (mllm->currentSelectedNode + ".png");
+
+			CCTextureCache::sharedTextureCache()->removeTextureForKey(targetDir.string().c_str());
 			
-			if (!path.string().ends_with(".png")) {
+			if (!path.has_extension() || path.extension() != ".png") {
 				Notification::create("Only PNGs are supported.");
 				return;
 			}
+
+			log::info("{}", path.string());
+			if (std::filesystem::exists(targetDir)) {
+				std::filesystem::remove(targetDir);
+			}
 			std::filesystem::copy_file(path, targetDir, std::filesystem::copy_options::overwrite_existing);
-			auto texture = CCTextureCache::sharedTextureCache()->addImage(targetDir.string().c_str(), false);
+
+			texture = CCTextureCache::sharedTextureCache()->addImage(targetDir.string().c_str(), false);
 
 			auto node = static_cast<CCSprite*>(CCDirector::sharedDirector()->getRunningScene()->getChildByIDRecursive(mllm->currentSelectedNode)->getChildByID("the-sprite"));
+			node->setTextureRect(CCRectMake(0, 0, texture->getContentSize().width, texture->getContentSize().height));
 			node->setTexture(texture);
+			node->setContentSize(texture->getContentSize());
+			node->setDirty(true); // com eon
 		}
 	});
 	m_pickListener.setFilter(file::pick(file::PickMode::OpenFile, pick));

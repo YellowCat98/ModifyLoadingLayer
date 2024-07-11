@@ -16,6 +16,7 @@ public:
 	std::string currentSelectedNode;
 	bool canMoveNode;
 	std::map<std::string, std::map<std::string, std::map<std::string, float>>> gameData;
+	std::filesystem::path temp;
 
 	void drag(CCNode* node, CCTouch* touch);
 	std::map<std::string, float> CCPointToMap(const CCPoint& point);
