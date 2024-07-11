@@ -204,6 +204,10 @@ void LoadingEditorUI::onChangeSprite(CCObject* sender) {
 				return;
 			}
 			std::filesystem::copy_file(path, targetDir, std::filesystem::copy_options::overwrite_existing);
+			auto texture = CCTextureCache::sharedTextureCache()->addImage(targetDir.string().c_str(), false);
+
+			auto node = static_cast<CCSprite*>(CCDirector::sharedDirector()->getRunningScene()->getChildByIDRecursive(mllm->currentSelectedNode)->getChildByID("the-sprite"));
+			node->setTexture(texture);
 		}
 	});
 	m_pickListener.setFilter(file::pick(file::PickMode::OpenFile, pick));
