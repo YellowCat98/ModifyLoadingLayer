@@ -27,6 +27,8 @@ protected:
 	bool canRotate;
 	bool canScale;
 	bool isNotHidden;
+	EventListener<Task<Result<std::filesystem::path>>> m_pickListener;
+	std::filesystem::path temp;
 	bool init();
 	void moving(CCObject* sender);
 	void moveHidebutton();
@@ -37,7 +39,7 @@ protected:
 	void canRotateF(CCObject* sender);
 	void onScale(CCObject* sender);
 	void onHide(CCObject* sender);
-	
+	void onChangeSprite(CCObject* sender);
 public:
 	static LoadingEditorUI* create();
 	MLLManager* mllm;

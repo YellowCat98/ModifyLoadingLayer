@@ -11,6 +11,10 @@ bool LoadingEditorUI::init() {
 	this->setZOrder(1.0f);
 	buttonArray = CCArray::create();
 	canRotate = false;
+	temp = Mod::get()->getConfigDir() / "temp";
+	if (!std::filesystem::exists(temp)) {
+		std::filesystem::create_directory(temp);
+	}
 
 	// <create toolbar>
 	toolbar = CCLayerColor::create();
@@ -108,6 +112,10 @@ bool LoadingEditorUI::init() {
 	auto hideSpr = ButtonSprite::create(CCSprite::createWithSpriteFrameName("MLL_HideBtn.png"_spr), 100, true, 50.0f, "GJ_button_01.png", 1.125f);
 	auto hideSprS = ButtonSprite::create(CCSprite::createWithSpriteFrameName("MLL_HideBtn.png"_spr), 100, true, 50.0f, "GJ_button_01.png", 1.125f);
 	hideSprS->setColor({128, 128, 128});
+	// </create hide button sprite>
+
+	// <create change button sprite>
+	auto changeSpr = ButtonSprite::create(CCSprite::createWithSpriteFrameName("MLL_SpriteBtn.png"_spr), 100, true, 50.0f, "GJ_button_01.png", 1.125f);
 
 	// </create button sprites>
 
@@ -132,6 +140,11 @@ bool LoadingEditorUI::init() {
 	hideBtn = CCMenuItemToggler::create(hideSpr, hideSprS, this, menu_selector(LoadingEditorUI::onHide));
 	buttonArray->addObject(hideBtn);
 	// </create hide button>
+
+	// <create change sprite button>
+	auto idk = CCMenuItemSpriteExtra::create(changeSpr, this, menu_selector(LoadingEditorUI::onChangeSprite));
+	buttonArray->addObject(idk);
+	// </create change sprite button>
 
 	// </create main buttons>
 
@@ -158,6 +171,42 @@ void LoadingEditorUI::onHide(CCObject* sender) {
 	} else {
 		node->getChildByID("the-sprite")->setVisible(true);
 	}
+}
+
+void LoadingEditorUI::onChangeSprite(CCObject* sender) {
+	if (mllm->currentSelectedNode.empty()) {
+		Notification::create("Select a node first!", CCSprite::createWithSpriteFrameName("GJ_deleteIcon_001.png"))->show();
+		return;
+	}
+	std::unordered_set<std::string> thefiles;
+	thefiles.insert("*.png");
+	utils::file::FilePickOptions::Filter idk;
+	idk.description = "Pick a file, only PNG works.";
+	idk.files = thefiles;
+	utils::file::FilePickOptions pick;
+	pick.filters = {idk}; // why this is so dumb
+	std::filesystem::path path;
+	m_pickListener.bind([this, path](Task<Result<std::filesystem::path>>::Event* event) {
+		if (event->isCancelled()) {
+			Notification::create("Failed to open file.")->show();
+			return;
+		}
+		if (auto result = event->getValue()) {
+			if (result->isErr()) {
+				Notification::create(fmt::format("Failed to open file. Error: {}", result->err()))->show();
+				return;
+			}
+			auto path = result->unwrap();
+			auto targetDir = temp / (mllm->currentSelectedNode + ".png");
+			
+			if (!path.string().ends_with(".png")) {
+				Notification::create("Only PNGs are supported.");
+				return;
+			}
+			std::filesystem::copy_file(path, targetDir, std::filesystem::copy_options::overwrite_existing);
+		}
+	});
+	m_pickListener.setFilter(file::pick(file::PickMode::OpenFile, pick));
 }
 
 void LoadingEditorUI::onScale(CCObject* sender) {
