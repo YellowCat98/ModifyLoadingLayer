@@ -230,7 +230,6 @@ void LoadingEditorUI::onChangeSprite(CCObject* sender) {
 						auto node = DragNode::create(CCSprite::createWithTexture(texture));
 						node->setID("test"_cstm);
 						node->mllm = mllm;
-						mllm->currentSelectedNode = node->getID();
 						this->getParent()->addChild(node);
 					} else {
 							if (mllm->currentSelectedNode.empty()) {

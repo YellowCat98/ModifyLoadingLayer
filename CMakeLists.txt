@@ -22,6 +22,8 @@ add_library(${PROJECT_NAME} SHARED
     src/Rotation.hpp
     src/Scale.cpp
     src/Scale.hpp
+    src/FLAlertInput.cpp
+    src/FLAlertInput.hpp
 )
 
 if (NOT DEFINED ENV{GEODE_SDK})
