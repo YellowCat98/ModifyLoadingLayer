@@ -6,8 +6,8 @@ bool Scale::init(std::string theNodeID) {
     sliderXL = CCLabelBMFont::create("", "bigFont.fnt");
     sliderY = Slider::create(this, menu_selector(Scale::onSliderY));
     sliderYL = CCLabelBMFont::create("", "bigFont.fnt");
-    sliderX->setValue(CCDirector::sharedDirector()->getRunningScene()->getChildByIDRecursive(nodeID)->getScaleX());
-    sliderY->setValue(CCDirector::sharedDirector()->getRunningScene()->getChildByIDRecursive(nodeID)->getScaleY());
+    sliderX->setValue(0.5f);
+    sliderY->setValue(0.5f);
     sliderY->setPositionY(sliderX->getPositionY() - 50);
     this->addChild(sliderX);
     this->addChild(sliderY);

@@ -1,5 +1,11 @@
 #include "InputPopup.hpp"
 
+bool InputPopup::init(float width, float height, std::string const& asdasd, DragNode* node) {
+	if (!Popup::init(width, height, asdasd)) return false;
+	asdasdNode = node;
+	return true;
+}
+
 bool InputPopup::setup(std::string const& value) {
 	auto winSize = CCDirector::sharedDirector()->getWinSize();
 
@@ -16,14 +22,15 @@ bool InputPopup::setup(std::string const& value) {
 }
 
 void InputPopup::confirm(CCObject* sender) {
-	conf->setScale(0.8f);
-	val = a->getString();
-	log::info("{}", val);
+	asdasdNode->setID(a->getString() += "-custom");
+	auto scene = CCDirector::sharedDirector()->getRunningScene();
+	log::info("{}", asdasdNode->getID());
 }
 
-InputPopup* InputPopup::create(std::string const& text) {
+
+InputPopup* InputPopup::create(std::string const& text, DragNode* node) {
     auto ret = new InputPopup();
-    if (ret->init(240.0f, 100.0f, text)) {
+    if (ret->init(240.0f, 100.0f, text, node)) {
         ret->autorelease();
         return ret;
     }

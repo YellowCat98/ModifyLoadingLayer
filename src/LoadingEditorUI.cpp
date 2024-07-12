@@ -229,7 +229,8 @@ void LoadingEditorUI::onChangeSprite(CCObject* sender) {
 				[this](auto, bool btn2) {
 					if (btn2) {
 						auto node = DragNode::create(CCSprite::createWithTexture(texture));
-						node->setID("test"_cstm);
+						auto popup = InputPopup::create("my-cool-sprite", node);
+						popup->show();
 						node->mllm = mllm;
 						this->getParent()->addChild(node);
 					} else {
