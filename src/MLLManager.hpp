@@ -9,6 +9,12 @@ using namespace geode::prelude;
 	menuItem->m_colorEnabled = true; \
 } while(0)
 
+static std::string operator"" _cstm(const char* str, size_t len) {
+	std::string modifiedString(str);
+	modifiedString += "-custom";
+	return modifiedString;
+}
+
 class MLLManager : public CCNode {
 protected:
 	bool init();

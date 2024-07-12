@@ -31,6 +31,7 @@ bool DragNode::init(CCSprite* THEFUCKINGSPRITE) {
 }
 
 void DragNode::selectNode(const std::string& nodeID) {
+	auto scene = CCDirector::sharedDirector()->getRunningScene();
 	if (mllm->currentSelectedNode == nodeID) {
 		return;
 	}

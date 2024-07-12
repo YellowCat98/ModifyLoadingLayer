@@ -51,6 +51,15 @@ bool LoadingEditorUI::init() {
 	REMOVE_EASE(restart);
 	menu->addChild(restart);
 	// </create restart button>
+
+	// <create save button>
+	saveBtn = CCMenuItemSpriteExtra::create(CCSprite::createWithSpriteFrameName("MLL_SaveBtn.png"_spr), this, menu_selector(LoadingEditorUI::Save));
+	saveBtn->setPosition({restart->getPositionX() + 20.0f}, 10.0f);
+	saveBtn->setScale(0.4f);
+	REMOVE_EASE(saveBtn);
+	menu->addChild(saveBtn);
+	// </create save button>
+
 	// </create toolbar>
 
 	// </create main>
@@ -154,6 +163,11 @@ bool LoadingEditorUI::init() {
 	return true;
 }
 
+void LoadingEditorUI::Save(CCObject* sender) {
+	saveBtn->setScale(0.4f);
+	log::info("hi");
+}
+
 void LoadingEditorUI::onHide(CCObject* sender) {
 	if (mllm->currentSelectedNode.empty()) {
 		Notification::create("Select a node first!", CCSprite::createWithSpriteFrameName("GJ_deleteIcon_001.png"))->show();
@@ -170,11 +184,7 @@ void LoadingEditorUI::onHide(CCObject* sender) {
 }
 
 void LoadingEditorUI::onChangeSprite(CCObject* sender) {
-	if (mllm->currentSelectedNode.empty()) {
-		Notification::create("Select a node first!", CCSprite::createWithSpriteFrameName("GJ_deleteIcon_001.png"))->show();
-		return;
-	}
-
+	CCNode* node;
 	std::unordered_set<std::string> thefiles;
 	thefiles.insert("*.png");
 	utils::file::FilePickOptions::Filter idk;
@@ -183,7 +193,7 @@ void LoadingEditorUI::onChangeSprite(CCObject* sender) {
 	utils::file::FilePickOptions pick;
 	pick.filters = {idk}; // why this is so dumb
 	std::filesystem::path path;
-	m_pickListener.bind([this, path](Task<Result<std::filesystem::path>>::Event* event) {
+	m_pickListener.bind([this, path, &node](Task<Result<std::filesystem::path>>::Event* event) {
 		if (event->isCancelled()) {
 			Notification::create("Failed to open file.")->show();
 			return;
@@ -210,12 +220,31 @@ void LoadingEditorUI::onChangeSprite(CCObject* sender) {
 			std::filesystem::copy_file(path, targetDir, std::filesystem::copy_options::overwrite_existing);
 
 			texture = CCTextureCache::sharedTextureCache()->addImage(targetDir.string().c_str(), false);
+			geode::createQuickPopup(
+				"Change sprite or add sprite?",
+				"Would you like to change the sprite of\nthe current selected node\n"
+				"Or add a new sprite? this will be treated as every other sprite.",
+				"Change", "Add",
+				[this](auto, bool btn2) {
+					if (btn2) {
+						auto node = DragNode::create(CCSprite::createWithTexture(texture));
+						node->setID("test"_cstm);
+						this->getParent()->addChild(node);
+						mllm->currentSelectedNode = node->getID();
+					} else {
+							if (mllm->currentSelectedNode.empty()) {
+								Notification::create("Select a node first!", CCSprite::createWithSpriteFrameName("GJ_deleteIcon_001.png"))->show();
+								return;
+							}
+						auto node = static_cast<CCSprite*>(CCDirector::sharedDirector()->getRunningScene()->getChildByIDRecursive(mllm->currentSelectedNode)->getChildByID("the-sprite"));
+						node->setTextureRect(CCRectMake(0, 0, texture->getContentSize().width, texture->getContentSize().height));
+						node->setTexture(texture);
+						node->setContentSize(texture->getContentSize());
+						node->setDirty(true); // com eon
+					}
+				}
+			);
 
-			auto node = static_cast<CCSprite*>(CCDirector::sharedDirector()->getRunningScene()->getChildByIDRecursive(mllm->currentSelectedNode)->getChildByID("the-sprite"));
-			node->setTextureRect(CCRectMake(0, 0, texture->getContentSize().width, texture->getContentSize().height));
-			node->setTexture(texture);
-			node->setContentSize(texture->getContentSize());
-			node->setDirty(true); // com eon
 		}
 	});
 	m_pickListener.setFilter(file::pick(file::PickMode::OpenFile, pick));

@@ -24,6 +24,7 @@ protected:
 	CCArray* buttonArray;
 	Rotation* r;
 	Scale* scaleInstance;
+	CCMenuItemSpriteExtra* saveBtn;
 	bool canRotate;
 	bool canScale;
 	bool isNotHidden;
@@ -40,6 +41,7 @@ protected:
 	void onScale(CCObject* sender);
 	void onHide(CCObject* sender);
 	void onChangeSprite(CCObject* sender);
+	void Save(CCObject* sender);
 	CCTexture2D* texture;
 public:
 	static LoadingEditorUI* create();
