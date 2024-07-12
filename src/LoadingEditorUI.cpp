@@ -3,6 +3,7 @@
 #include "CustomLoadingLayer.hpp"
 #include "Rotation.hpp"
 #include "Scale.hpp"
+#include "InputPopup.hpp"
 
 bool LoadingEditorUI::init() {
 	if (!CCLayer::init()) return false;

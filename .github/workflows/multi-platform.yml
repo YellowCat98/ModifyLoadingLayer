@@ -63,6 +63,6 @@ jobs:
           name: 'Nightly'
           prerelease: true
           body: |
-            This is the latest build for commit ${{ github.sha }} (${{ github.event.head_commit.message }}).
-            This build may contain bugs. please use the latest stable release either from geode, the geode website, or the latest github release.
+            This is the latest build for commit ${{ github.sha }}.
+            This build may contain bugs. please use the latest stable release.
           files: ${{ steps.build.outputs.build-output }}/*

@@ -8,7 +8,7 @@ This mod allows you to modify the loading screen however you want and share it. 
 - what else
 - Set opacity
 - change elements' sprites (broken a little as of now.)
-
+- add your own sprites!
 
 ## Feedback and Support
 

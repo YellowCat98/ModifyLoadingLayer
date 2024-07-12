@@ -8,7 +8,6 @@
 #include "MLLManager.hpp"
 #include "Rotation.hpp"
 #include "Scale.hpp"
-#include "FLAlertInput.hpp"
 
 using namespace geode::prelude;
 
@@ -29,17 +28,7 @@ class $modify(MyMenuLayer, MenuLayer) {
 		menu->addChild(myButton);
 		menu->updateLayout();
 		myButton->setID("mll-editor-button"_spr);
-		auto delagate = new FLAlertLayerProtocol();
-		auto hi = FLAlertInput::create(
-			"a",
-			"h",
-			"a", "a",
-			[this](bool btn2) {
-				log::info("nio");
-			}
-		);
-		hi->m_scene = this;
-		hi->show();
+
 		return true;
 	}
 
