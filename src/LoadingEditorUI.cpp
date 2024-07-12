@@ -229,8 +229,9 @@ void LoadingEditorUI::onChangeSprite(CCObject* sender) {
 					if (btn2) {
 						auto node = DragNode::create(CCSprite::createWithTexture(texture));
 						node->setID("test"_cstm);
-						this->getParent()->addChild(node);
+						node->mllm = mllm;
 						mllm->currentSelectedNode = node->getID();
+						this->getParent()->addChild(node);
 					} else {
 							if (mllm->currentSelectedNode.empty()) {
 								Notification::create("Select a node first!", CCSprite::createWithSpriteFrameName("GJ_deleteIcon_001.png"))->show();

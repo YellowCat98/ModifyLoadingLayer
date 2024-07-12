@@ -26,6 +26,7 @@ bool DragNode::init(CCSprite* THEFUCKINGSPRITE) {
 	selectedDisplay->setContentSize(this->getContentSize());
 	selectedDisplay->setVisible(false);
 	selectedDisplay->setZOrder(-1.0f);
+	selectedDisplay->setID("selected");
 	this->addChild(selectedDisplay);
 	return true;
 }
