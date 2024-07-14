@@ -157,6 +157,51 @@ void CustomLoadingLayer::getRotations() {
 
 }
 
+void CustomLoadingLayer::resetOpacity() {
+	static_cast<CCSprite*>(gdlogo->getChildByID("the-sprite"))->setOpacity(255);
+	static_cast<CCSprite*>(robtoplogo->getChildByID("the-sprite"))->setOpacity(255);
+	static_cast<CCSprite*>(cocos2dlogo->getChildByID("the-sprite"))->setOpacity(255);
+	static_cast<CCSprite*>(fmodlogo->getChildByID("the-sprite"))->setOpacity(255);
+}
+
+void CustomLoadingLayer::resetScale() {
+	gdlogo->setScale(1.0f);
+	robtoplogo->setScale(1.0f);
+	cocos2dlogo->setScale(0.6f);
+	fmodlogo->setScale(0.6f);
+
+}
+
+void CustomLoadingLayer::resetSprite() {
+	CCArrayExt<DragNode*> kids = this->getChildren();
+	std::vector<std::string> nodeIDS;
+	nodeIDS.reserve(kids.size());
+	auto scene = CCDirector::sharedDirector()->getRunningScene();
+	
+	for (auto kiddo : kids) {
+		std::string str(typeid(*kiddo).name());
+		if (str.find("DragNode") != std::string::npos) {
+			nodeIDS.push_back(kiddo->getID());
+		}
+	}
+	for (auto babynodeID : nodeIDS) {
+		if (babynodeID.find("-custom") != std::string::npos) {
+			scene->getChildByIDRecursive(babynodeID)->removeFromParent();
+		} else {
+			// im lazy
+
+			auto gdlogologo = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("GJ_logo_001.png");
+			auto robtoplogologo = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("RobTopLogoBig_001.png");
+			auto fmodlogologo = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("fmodLogo.png");
+			auto cocos2dlogologo = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("cocos2DxLogo.png");
+			static_cast<CCSprite*>(gdlogo->getChildByID("the-sprite"))->setDisplayFrame(gdlogologo);
+			static_cast<CCSprite*>(robtoplogo->getChildByID("the-sprite"))->setDisplayFrame(robtoplogologo);
+			static_cast<CCSprite*>(fmodlogo->getChildByID("the-sprite"))->setDisplayFrame(fmodlogologo);
+			static_cast<CCSprite*>(cocos2dlogo->getChildByID("the-sprite"))->setDisplayFrame(cocos2dlogologo);
+		}
+	}
+}
+
 CustomLoadingLayer* CustomLoadingLayer::create() {
 	CustomLoadingLayer* layer = new CustomLoadingLayer();
 	if (layer && layer->init()) {

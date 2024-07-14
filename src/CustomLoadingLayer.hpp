@@ -22,6 +22,9 @@ public:
 	static CustomLoadingLayer* create();
 	void resetPosition();
 	void resetRotation();
+	void resetScale();
+	void resetOpacity();
+	void resetSprite();
 	void getPositions();
 	void getRotations();
 private:

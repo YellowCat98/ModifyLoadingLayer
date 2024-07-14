@@ -27,6 +27,15 @@ std::map<std::string, float> MLLManager::CCPointToMap(const CCPoint& point) {
 	return value;
 }
 
+bool MLLManager::isCustom(const std::string& id) {
+	std::string suffix = "-custom";
+	if (id.size() >= suffix.size() &&
+		id.compare(id.size() - suffix.size(), suffix.size(), suffix) == 0) {
+			return true;
+		}
+	return false;
+}
+
 MLLManager* MLLManager::get() {
 	MLLManager* layer = new MLLManager();
 	if (layer && layer->init()) {

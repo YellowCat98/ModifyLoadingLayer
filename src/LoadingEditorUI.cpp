@@ -361,6 +361,9 @@ void LoadingEditorUI::Reset(CCObject* sender) {
 				auto customloadinglayer = static_cast<CustomLoadingLayer*>(this->getParent());
 				customloadinglayer->resetPosition();
 				customloadinglayer->resetRotation();
+				customloadinglayer->resetOpacity();
+				customloadinglayer->resetScale();
+				customloadinglayer->resetSprite();
 			}
 		}
 	);
