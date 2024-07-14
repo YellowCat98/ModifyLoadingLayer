@@ -4,6 +4,7 @@
 #include "Rotation.hpp"
 #include "Scale.hpp"
 #include "InputPopup.hpp"
+#include "Opacity.hpp"
 
 bool LoadingEditorUI::init() {
 	if (!CCLayer::init()) return false;
@@ -122,6 +123,7 @@ bool LoadingEditorUI::init() {
 
 	// <create change button sprite>
 	auto changeSpr = ButtonSprite::create(CCSprite::createWithSpriteFrameName("MLL_SpriteBtn.png"_spr), 100, true, 50.0f, "GJ_button_01.png", 1.125f);
+	// </create change button sprite>
 
 	// </create button sprites>
 
@@ -174,13 +176,14 @@ void LoadingEditorUI::onHide(CCObject* sender) {
 		Notification::create("Select a node first!", CCSprite::createWithSpriteFrameName("GJ_deleteIcon_001.png"))->show();
 		return;
 	}
-	isNotHidden = !isNotHidden;
-	auto scene = CCDirector::sharedDirector()->getRunningScene();
-	auto node = scene->getChildByIDRecursive(mllm->currentSelectedNode);
-	if (isNotHidden) {
-		node->getChildByID("the-sprite")->setVisible(false);
+	canOpacity = !canOpacity;
+
+	if (canOpacity) {
+		opacity = Opacity::create(mllm->currentSelectedNode);
+		this->addChild(opacity);
 	} else {
-		node->getChildByID("the-sprite")->setVisible(true);
+		opacity->removeFromParent();
+		opacity = nullptr;
 	}
 }
 

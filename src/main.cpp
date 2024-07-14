@@ -8,6 +8,7 @@
 #include "MLLManager.hpp"
 #include "Rotation.hpp"
 #include "Scale.hpp"
+#include "Opacity.hpp"
 
 using namespace geode::prelude;
 
@@ -28,6 +29,7 @@ class $modify(MyMenuLayer, MenuLayer) {
 		menu->addChild(myButton);
 		menu->updateLayout();
 		myButton->setID("mll-editor-button"_spr);
+
 
 		return true;
 	}

@@ -3,6 +3,7 @@
 #include "MLLManager.hpp"
 #include "Rotation.hpp"
 #include "Scale.hpp"
+#include "Opacity.hpp"
 using namespace geode::prelude;
 
 class LoadingEditorUI : public CCLayer {
@@ -24,10 +25,11 @@ protected:
 	CCArray* buttonArray;
 	Rotation* r;
 	Scale* scaleInstance;
+	Opacity* opacity;
 	CCMenuItemSpriteExtra* saveBtn;
 	bool canRotate;
 	bool canScale;
-	bool isNotHidden;
+	bool canOpacity;
 	EventListener<Task<Result<std::filesystem::path>>> m_pickListener;
 	std::filesystem::path temp;
 	bool init();
