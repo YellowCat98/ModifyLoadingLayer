@@ -29,11 +29,11 @@ void InputPopup::confirm(CCObject* sender) {
 
 
 InputPopup* InputPopup::create(std::string const& text, DragNode* node) {
-    auto ret = new InputPopup();
-    if (ret->init(240.0f, 100.0f, text, node)) {
-        ret->autorelease();
-        return ret;
-    }
-    CC_SAFE_DELETE(ret);
-    return nullptr;
+	auto ret = new InputPopup();
+	if (ret->init(240.0f, 100.0f, text, node)) {
+		ret->autorelease();
+		return ret;
+	}
+	CC_SAFE_DELETE(ret);
+	return nullptr;
 }
