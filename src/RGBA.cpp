@@ -1,4 +1,4 @@
-#include "RGBA.HPP"
+#include "RGBA.hpp"
 
 bool _rgba::init(std::string theNodeID) {
     if (!CCLayer::init()) return false;
