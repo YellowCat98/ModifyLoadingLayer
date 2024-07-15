@@ -4,11 +4,6 @@
 #include <Geode/modify/MenuLayer.hpp>
 #include <Geode/modify/LoadingLayer.hpp>
 #include "CustomLoadingLayer.hpp"
-#include "DragNode.hpp"
-#include "MLLManager.hpp"
-#include "Rotation.hpp"
-#include "Scale.hpp"
-#include "Opacity.hpp"
 
 using namespace geode::prelude;
 

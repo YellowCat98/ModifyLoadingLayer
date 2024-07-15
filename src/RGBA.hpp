@@ -3,17 +3,20 @@
 
 using namespace geode::prelude;
 
-class Opacity : public CCLayer {
+class _rgba : public CCLayer {
 private:
     std::string nodeID;
     Slider* sliderA;
     CCLabelBMFont* sliderAL;
     Slider* sliderR;
     CCLabelBMFont* sliderRL;
+    Slider* sliderG;
+    CCLabelBMFont* sliderGL;
     bool init(std::string theNodeID);
     void onSliderA(CCObject* sender);
     void onSliderR(CCObject* sender);
+    void onSliderG(CCObject* sender);
     float calculate(float value);
 public:
-    static Opacity* create(std::string theNodeID);
+    static _rgba* create(std::string theNodeID);
 };

@@ -3,7 +3,7 @@
 #include "MLLManager.hpp"
 #include "Rotation.hpp"
 #include "Scale.hpp"
-#include "Opacity.hpp"
+#include "RGBA.HPP"
 using namespace geode::prelude;
 
 class LoadingEditorUI : public CCLayer {
@@ -25,7 +25,7 @@ protected:
 	CCArray* buttonArray;
 	Rotation* r;
 	Scale* scaleInstance;
-	Opacity* opacity;
+	_rgba* _rgba;
 	CCMenuItemSpriteExtra* saveBtn;
 	bool canRotate;
 	bool canScale;

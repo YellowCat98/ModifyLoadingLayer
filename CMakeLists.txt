@@ -24,8 +24,8 @@ add_library(${PROJECT_NAME} SHARED
     src/Scale.hpp
     src/InputPopup.cpp
     src/InputPopup.hpp
-    src/Opacity.hpp
-    src/Opacity.cpp
+    src/RGBA.hpp
+    src/RGBA.cpp
 )
 
 if (NOT DEFINED ENV{GEODE_SDK})

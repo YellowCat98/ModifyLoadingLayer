@@ -4,7 +4,7 @@
 #include "Rotation.hpp"
 #include "Scale.hpp"
 #include "InputPopup.hpp"
-#include "Opacity.hpp"
+#include "RGBA.HPP"
 
 bool LoadingEditorUI::init() {
 	if (!CCLayer::init()) return false;
@@ -179,11 +179,11 @@ void LoadingEditorUI::onHide(CCObject* sender) {
 	canOpacity = !canOpacity;
 
 	if (canOpacity) {
-		opacity = Opacity::create(mllm->currentSelectedNode);
-		this->addChild(opacity);
+		_rgba = _rgba::create(mllm->currentSelectedNode);
+		this->addChild(_rgba);
 	} else {
-		opacity->removeFromParent();
-		opacity = nullptr;
+		_rgba->removeFromParent();
+		_rgba = nullptr;
 	}
 }
 
