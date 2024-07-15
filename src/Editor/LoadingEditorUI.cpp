@@ -1,5 +1,5 @@
 #include "LoadingEditorUI.hpp"
-#include "MLLManager.hpp" // for literally most things here
+#include "../MLLManager.hpp" // for literally most things here
 #include "CustomLoadingLayer.hpp"
 #include "Rotation.hpp"
 #include "Scale.hpp"

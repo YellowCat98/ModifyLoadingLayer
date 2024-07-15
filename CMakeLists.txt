@@ -9,23 +9,23 @@ project(ModifyLoadingLayer VERSION 1.0.0)
 # Set up the mod binary
 add_library(${PROJECT_NAME} SHARED
     src/main.cpp
-    src/CustomLoadingLayer.hpp
-    src/CustomLoadingLayer.cpp
-    src/LoadignLayer.cpp
-    src/DragNode.hpp
-    src/DragNode.cpp
+    src/Editor/CustomLoadingLayer.hpp
+    src/Editor/CustomLoadingLayer.cpp
+    src/Loader/LoadignLayer.cpp
+    src/Editor/DragNode.hpp
+    src/Editor/DragNode.cpp
     src/MLLManager.cpp
     src/MLLManager.hpp
-    src/LoadingEditorUI.cpp
-    src/LoadingEditorUI.hpp
-    src/Rotation.cpp
-    src/Rotation.hpp
-    src/Scale.cpp
-    src/Scale.hpp
-    src/InputPopup.cpp
-    src/InputPopup.hpp
-    src/RGBA.hpp
-    src/RGBA.cpp
+    src/Editor/LoadingEditorUI.cpp
+    src/Editor/LoadingEditorUI.hpp
+    src/Editor/Rotation.cpp
+    src/Editor/Rotation.hpp
+    src/Editor/Scale.cpp
+    src/Editor/Scale.hpp
+    src/Editor/InputPopup.cpp
+    src/Editor/InputPopup.hpp
+    src/Editor/RGBA.hpp
+    src/Editor/RGBA.cpp
 )
 
 if (NOT DEFINED ENV{GEODE_SDK})

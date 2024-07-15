@@ -3,7 +3,7 @@
 #include <Geode/Geode.hpp>
 #include <Geode/modify/MenuLayer.hpp>
 #include <Geode/modify/LoadingLayer.hpp>
-#include "CustomLoadingLayer.hpp"
+#include "Editor/CustomLoadingLayer.hpp"
 
 using namespace geode::prelude;
 

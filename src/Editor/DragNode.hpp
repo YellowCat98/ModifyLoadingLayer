@@ -1,6 +1,6 @@
 #pragma once
 #include <Geode/Geode.hpp>
-#include "MLLManager.hpp"
+#include "../MLLManager.hpp"
 
 using namespace geode::prelude;
 

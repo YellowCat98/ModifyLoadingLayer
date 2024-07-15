@@ -8,7 +8,8 @@
 #include <cstdio>
 #include "DragNode.hpp"
 #include "LoadingEditorUI.hpp"
-#include "MLLManager.hpp"
+#include "../MLLManager.hpp"
+
 using namespace geode::prelude;
 
 
