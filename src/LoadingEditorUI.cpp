@@ -4,7 +4,7 @@
 #include "Rotation.hpp"
 #include "Scale.hpp"
 #include "InputPopup.hpp"
-#include "RGBA.HPP"
+#include "RGBA.hpp"
 
 bool LoadingEditorUI::init() {
 	if (!CCLayer::init()) return false;

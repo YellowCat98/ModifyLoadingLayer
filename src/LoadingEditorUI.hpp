@@ -3,7 +3,7 @@
 #include "MLLManager.hpp"
 #include "Rotation.hpp"
 #include "Scale.hpp"
-#include "RGBA.HPP"
+#include "RGBA.hpp"
 using namespace geode::prelude;
 
 class LoadingEditorUI : public CCLayer {
