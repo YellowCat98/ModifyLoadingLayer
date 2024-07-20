@@ -23,7 +23,7 @@ bool _rgba::init(std::string theNodeID) {
 	this->addChild(sliderR);
 
 	sliderRL->setScale(0.7f);
-	sliderRL->setPositionY(sliderR->getPositionY() + 20);
+	sliderRL->setPositionY(sliderR->getPositionY() + 17);
 
 
 	sliderRL->setString((fmt::format("R: {}", node->getColor().r)).c_str());
@@ -36,7 +36,21 @@ bool _rgba::init(std::string theNodeID) {
 	this->addChild(sliderG);
 
 	sliderGL->setScale(0.7f);
-	sliderGL->setPositionY(sliderG->getPositionY() + 20);
+	sliderGL->setPositionY(sliderG->getPositionY() + 17);
+
+	sliderGL->setString((fmt::format("G: {}", node->getColor().g)).c_str());
+	this->addChild(sliderGL);
+
+	sliderB = Slider::create(this, menu_selector(_rgba::onSliderB));
+	sliderBL = CCLabelBMFont::create("", "bigFont.fnt");
+	sliderB->setValue(node->getColor().b / 255);
+	sliderB->setPositionY(sliderG->getPositionY() + 30);
+	this->addChild(sliderB);
+
+	sliderBL->setScale(0.7f);
+	sliderBL->setPositionY(sliderB->getPositionY() + 17);
+	sliderBL->setString((fmt::format("B: {}", node->getColor().b)).c_str());
+	this->addChild(sliderBL);
 
 	this->setPosition(CCDirector::sharedDirector()->getRunningScene()->getChildByIDRecursive(nodeID)->getPosition());
 	this->setPositionY(CCDirector::sharedDirector()->getRunningScene()->getChildByIDRecursive(nodeID)->getPositionY() + 50);
@@ -59,6 +73,12 @@ void _rgba::onSliderG(CCObject* sender) {
 	auto node = static_cast<CCSprite*>(CCDirector::sharedDirector()->getRunningScene()->getChildByIDRecursive(nodeID)->getChildByID("the-sprite"));
 	sliderGL->setString(fmt::format("G: {}", calculate(sliderG->getThumb()->getValue())).c_str());
 	node->setColor(ccc3(node->getColor().r, calculate(sliderG->getThumb()->getValue()), node->getColor().b));
+}
+
+void _rgba::onSliderB(CCObject* sender) {
+	auto node = static_cast<CCSprite*>(CCDirector::sharedDirector()->getRunningScene()->getChildByIDRecursive(nodeID)->getChildByID("the-sprite"));
+	sliderBL->setString(fmt::format("B: {}",calculate(sliderB->getThumb()->getValue())).c_str());
+	node->setColor(ccc3(node->getColor().r, node->getColor().g, calculate(sliderB->getThumb()->getValue())));
 }
 
 void _rgba::onSliderA(CCObject* sender) {
