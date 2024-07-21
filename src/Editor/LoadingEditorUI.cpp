@@ -171,6 +171,10 @@ void LoadingEditorUI::Save(CCObject* sender) {
 	log::info("hi");
 }
 
+void LoadingEditorUI::onSelectBG(CCObject* sender) {
+	log::info("|asdasd|");
+}
+
 void LoadingEditorUI::onHide(CCObject* sender) {
 	if (mllm->currentSelectedNode.empty()) {
 		Notification::create("Select a node first!", CCSprite::createWithSpriteFrameName("GJ_deleteIcon_001.png"))->show();
