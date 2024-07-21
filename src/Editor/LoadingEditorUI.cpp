@@ -93,8 +93,7 @@ bool LoadingEditorUI::init() {
 
 	auto moveSprite = ButtonSprite::create(CCSprite::createWithSpriteFrameName("MLL_DragBtn.png"_spr), 100, true, 50.0f, "GJ_button_01.png", 1.25f);
 	auto moveBtnSelectedSpr = ButtonSprite::create(CCSprite::createWithSpriteFrameName("MLL_DragBtn.png"_spr), 100, true, 50.0f, "GJ_button_01.png", 1.25f);
-	moveBtnSelectedSpr->setColor({128, 128, 128});
-	moveSprite->setColor({123,123,123});
+	if (moveBtnSelectedSpr->m_BGSprite) { moveBtnSelectedSpr->m_BGSprite->setColor({128, 128, 128}); }
 
 	// </create move button sprite>
 
