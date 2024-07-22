@@ -22,7 +22,8 @@ protected:
 	CCMenuItemToggler* brainRot;
 	CCMenuItemToggler* scale;
 	CCMenuItemToggler* hideBtn;
-	CCMenuItemSpriteExtra* selectBG;
+	CCMenuItemSpriteExtra* changeBG;
+	CCMenuItemSpriteExtra* idk;
 	CCArray* buttonArray;
 	Rotation* r;
 	Scale* scaleInstance;
@@ -44,9 +45,10 @@ protected:
 	void onScale(CCObject* sender);
 	void onHide(CCObject* sender);
 	void onChangeSprite(CCObject* sender);
-	void onSelectBG(CCObject* sender);
+	void onChangeBG(CCObject* sender);
 	void Save(CCObject* sender);
 	CCTexture2D* texture;
+	CCTexture2D* bg;
 public:
 	static LoadingEditorUI* create();
 	MLLManager* mllm;

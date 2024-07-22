@@ -5,6 +5,7 @@ using namespace geode::prelude;
 
 class _rgba : public CCLayer {
 private:
+    CCSprite* node;
     std::string nodeID;
     Slider* sliderA;
     CCLabelBMFont* sliderAL;

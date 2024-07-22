@@ -37,7 +37,7 @@ void DragNode::selectNode(const std::string& nodeID) {
 		return;
 	}
 
-	DragNode* previousNode = static_cast<DragNode*>(this->getParent()->getChildByID(mllm->currentSelectedNode));
+	auto previousNode = dynamic_cast<DragNode*>(this->getParent()->getChildByID(mllm->currentSelectedNode)); // havent dynamically casted in a while!
 	if (previousNode) {
 		previousNode->selectedDisplay->setVisible(false);
 	}

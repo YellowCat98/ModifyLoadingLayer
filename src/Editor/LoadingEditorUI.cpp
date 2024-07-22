@@ -91,38 +91,42 @@ bool LoadingEditorUI::init() {
 
 	// <create move button sprite>
 
-	auto moveSprite = ButtonSprite::create(CCSprite::createWithSpriteFrameName("MLL_DragBtn.png"_spr), 100, true, 50.0f, "GJ_button_01.png", 1.25f);
-	auto moveBtnSelectedSpr = ButtonSprite::create(CCSprite::createWithSpriteFrameName("MLL_DragBtn.png"_spr), 100, true, 50.0f, "GJ_button_01.png", 1.25f);
-	if (moveBtnSelectedSpr->m_BGSprite) { moveBtnSelectedSpr->m_BGSprite->setColor({128, 128, 128}); }
+	auto moveSprite = ButtonSprite::create(CCSprite::createWithSpriteFrameName("MLL_DragBtn.png"_spr), 32, 0, 50.0f, 1.0f, false);
+	auto moveBtnSelectedSpr = ButtonSprite::create(CCSprite::createWithSpriteFrameName("MLL_DragBtn.png"_spr), 32, 0, 50.0f, 1.0f, false);
+	moveBtnSelectedSpr->m_BGSprite->setColor({200, 200, 200});
 
 	// </create move button sprite>
 
 	// <create rotate button sprite>
 
-	auto brainrotBtnSpr = ButtonSprite::create(CCSprite::createWithSpriteFrameName("MLL_rotateBtn.png"_spr), 100, true, 50.0f, "GJ_button_01.png", 1.25f);
-	auto brainrotBtnSprSelected = ButtonSprite::create(CCSprite::createWithSpriteFrameName("MLL_rotateBtn.png"_spr), 100, true, 50.0f, "GJ_button_01.png", 1.25f);
-	brainrotBtnSprSelected->setColor({128, 128, 128});
+	auto brainrotBtnSpr = ButtonSprite::create(CCSprite::createWithSpriteFrameName("MLL_rotateBtn.png"_spr), 32, 0, 50.0f, 1.0f, false);
+	auto brainrotBtnSprSelected = ButtonSprite::create(CCSprite::createWithSpriteFrameName("MLL_rotateBtn.png"_spr), 32, 0, 50.0f, 1.0f, false);
+	brainrotBtnSprSelected->m_BGSprite->setColor({200, 200, 200});
 
 	// </create rotate button sprite>
 
 	// <create scale button sprite>
 
-	auto scaleSpr = ButtonSprite::create(CCSprite::createWithSpriteFrameName("edit_scaleXYBtn_001.png"), 100, true, 50.0f, "GJ_button_01.png", 1.25f);
-	auto scaleSprS = ButtonSprite::create(CCSprite::createWithSpriteFrameName("edit_scaleXYBtn_001.png"), 100, true, 50.0f, "GJ_button_01.png", 1.25f);
-	scaleSprS->setColor({128, 128, 128});
+	auto scaleSpr = ButtonSprite::create(CCSprite::createWithSpriteFrameName("edit_scaleXYBtn_001.png"), 32, 0, 50.0f, 1.0f, false);
+	auto scaleSprS = ButtonSprite::create(CCSprite::createWithSpriteFrameName("edit_scaleXYBtn_001.png"), 32, 0, 50.0f, 1.0f, false);
+	scaleSprS->m_BGSprite->setColor({200, 200, 200});
 
 	// </create scale button sprite>
 
 	// <create hide button sprite>
 
-	auto hideSpr = ButtonSprite::create(CCSprite::createWithSpriteFrameName("MLL_HideBtn.png"_spr), 100, true, 50.0f, "GJ_button_01.png", 1.125f);
-	auto hideSprS = ButtonSprite::create(CCSprite::createWithSpriteFrameName("MLL_HideBtn.png"_spr), 100, true, 50.0f, "GJ_button_01.png", 1.125f);
-	hideSprS->setColor({128, 128, 128});
+	auto hideSpr = ButtonSprite::create(CCSprite::createWithSpriteFrameName("MLL_HideBtn.png"_spr), 32, 0, 50.0f, 1.0f, false);
+	auto hideSprS = ButtonSprite::create(CCSprite::createWithSpriteFrameName("MLL_HideBtn.png"_spr), 32, 0, 50.0f, 1.0f, false);
+	hideSprS->m_BGSprite->setColor({200, 200, 200});
 	// </create hide button sprite>
 
 	// <create change button sprite>
-	auto changeSpr = ButtonSprite::create(CCSprite::createWithSpriteFrameName("MLL_SpriteBtn.png"_spr), 100, true, 50.0f, "GJ_button_01.png", 1.125f);
+	auto changeSpr = ButtonSprite::create(CCSprite::createWithSpriteFrameName("MLL_SpriteBtn.png"_spr), 32, 0, 50.0f, 1.0f, false);
 	// </create change button sprite>
+
+	// <create change bg button sprite>
+	auto BGSpr = ButtonSprite::create(CCSprite::createWithSpriteFrameName("MLL_selectBgBtn.png"_spr), 32, 0, 50.0f, 1.0f, false);
+	// </create change bg button sprite>
 
 	// </create button sprites>
 
@@ -149,9 +153,15 @@ bool LoadingEditorUI::init() {
 	// </create hide button>
 
 	// <create change sprite button>
-	auto idk = CCMenuItemSpriteExtra::create(changeSpr, this, menu_selector(LoadingEditorUI::onChangeSprite));
+	idk = CCMenuItemSpriteExtra::create(changeSpr, this, menu_selector(LoadingEditorUI::onChangeSprite));
 	buttonArray->addObject(idk);
 	// </create change sprite button>
+
+	// <create change bg button>
+	changeBG = CCMenuItemSpriteExtra::create(BGSpr, this, menu_selector(LoadingEditorUI::onChangeBG));
+	buttonArray->addObject(changeBG);
+	// </create change bg button>
+	
 
 	// </create main buttons>
 
@@ -170,8 +180,50 @@ void LoadingEditorUI::Save(CCObject* sender) {
 	log::info("hi");
 }
 
-void LoadingEditorUI::onSelectBG(CCObject* sender) {
-	log::info("|asdasd|");
+void LoadingEditorUI::onChangeBG(CCObject* sender) {
+/*
+	#ifdef GEODE_IS_WINDOWS
+	file::FilePickOptions::Filter filter = {
+		.description = "Import BG Sprite",
+		.files = { "*.png"}
+	};
+	#else
+	file::FilePickOptions::Filter filter = {};
+	#endif
+	file::FilePickOptions options = {
+		std::nullopt,
+		{filter}
+	};
+
+	m_pickListener.bind([this](Task<Result<std::filesystem::path>>::Event* event) {
+		if (event->isCancelled()) {
+			Notification::create("Failed to open file.", CCSprite::createWithSpriteFrameName("GJ_deleteIcon_001.png"))->show();
+			return;
+		}
+		if (auto result = event->getValue()) {
+			if (result->isErr()) {
+				Notification::create(fmt::format("An error occured. Error: {}", result->err()), CCSprite::createWithSpriteFrameName("GJ_deleteIcon_001.png"))->show();
+				return;
+			}
+			auto path = result->unwrap();
+			auto target = mllm->temp / "bg-texture.png";
+
+
+			if (std::filesystem::exists(target)) {
+				std::filesystem::remove(target);
+			}
+			std::filesystem::copy_file(path, target, std::filesystem::copy_options::overwrite_existing);
+
+			bg = CCTextureCache::sharedTextureCache()->addImage(target.string().c_str(), false);
+
+			static_cast<CCSprite*>(this->getParent()->getChildByID("bg-texture"))->setTexture(bg);
+
+			
+		}
+	});
+	m_pickListener.setFilter(file::pick(file::PickMode::OpenFile, options));
+*/
+	mllm->currentSelectedNode = "bg-texture";
 }
 
 void LoadingEditorUI::onHide(CCObject* sender) {

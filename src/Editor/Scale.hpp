@@ -1,10 +1,12 @@
 #pragma once
 #include <Geode/Geode.hpp>
+#include "DragNode.hpp"
 
 using namespace geode::prelude;
 
 class Scale : public CCLayer {
 private:
+    CCNode* node;
     std::string nodeID;
     Slider* sliderX;
     Slider* sliderY;

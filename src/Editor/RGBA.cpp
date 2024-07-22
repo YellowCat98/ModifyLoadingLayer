@@ -3,7 +3,10 @@
 bool _rgba::init(std::string theNodeID) {
 	if (!CCLayer::init()) return false;
 	nodeID = theNodeID;
-	auto node = static_cast<CCSprite*>(CCDirector::sharedDirector()->getRunningScene()->getChildByIDRecursive(nodeID));
+	node = dynamic_cast<CCSprite*>(CCDirector::sharedDirector()->getRunningScene()->getChildByIDRecursive(nodeID));
+	if (!node) {
+		node = dynamic_cast<CCSprite*>(CCDirector::sharedDirector()->getRunningScene()->getChildByIDRecursive(nodeID)->getChildByID("the-sprite"));
+	}
 	sliderA = Slider::create(this, menu_selector(_rgba::onSliderA));
 	sliderAL = CCLabelBMFont::create("", "bigFont.fnt");
 	sliderA->setValue(node->getOpacity() / 255);
@@ -64,25 +67,22 @@ float _rgba::calculate(float value) {
 }
 
 void _rgba::onSliderR(CCObject* sender) {
-	auto node = static_cast<CCSprite*>(CCDirector::sharedDirector()->getRunningScene()->getChildByIDRecursive(nodeID)->getChildByID("the-sprite"));
 	sliderRL->setString(fmt::format("R: {}", calculate(sliderR->getThumb()->getValue())).c_str());
 	node->setColor(ccc3(calculate(sliderR->getThumb()->getValue()), node->getColor().g, node->getColor().b));
 }
 
 void _rgba::onSliderG(CCObject* sender) {
-	auto node = static_cast<CCSprite*>(CCDirector::sharedDirector()->getRunningScene()->getChildByIDRecursive(nodeID)->getChildByID("the-sprite"));
+
 	sliderGL->setString(fmt::format("G: {}", calculate(sliderG->getThumb()->getValue())).c_str());
 	node->setColor(ccc3(node->getColor().r, calculate(sliderG->getThumb()->getValue()), node->getColor().b));
 }
 
 void _rgba::onSliderB(CCObject* sender) {
-	auto node = static_cast<CCSprite*>(CCDirector::sharedDirector()->getRunningScene()->getChildByIDRecursive(nodeID)->getChildByID("the-sprite"));
 	sliderBL->setString(fmt::format("B: {}",calculate(sliderB->getThumb()->getValue())).c_str());
 	node->setColor(ccc3(node->getColor().r, node->getColor().g, calculate(sliderB->getThumb()->getValue())));
 }
 
 void _rgba::onSliderA(CCObject* sender) {
-	auto node = static_cast<CCSprite*>(CCDirector::sharedDirector()->getRunningScene()->getChildByIDRecursive(nodeID)->getChildByID("the-sprite"));
 	sliderAL->setString(fmt::format("A: {}", calculate(sliderA->getThumb()->getValue())).c_str());
 	node->setOpacity(calculate(sliderA->getThumb()->getValue()));
 }
