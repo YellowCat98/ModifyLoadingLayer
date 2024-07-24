@@ -243,7 +243,7 @@ void LoadingEditorUI::onHide(CCObject* sender) {
 }
 
 void LoadingEditorUI::onChangeSprite(CCObject* sender) {
-	CCNode* node;
+	CCSprite* node;
 	std::unordered_set<std::string> thefiles;
 	thefiles.insert("*.png");
 	utils::file::FilePickOptions::Filter idk;
@@ -296,11 +296,17 @@ void LoadingEditorUI::onChangeSprite(CCObject* sender) {
 								Notification::create("Select a node first!", CCSprite::createWithSpriteFrameName("GJ_deleteIcon_001.png"))->show();
 								return;
 							}
-						auto node = static_cast<CCSprite*>(CCDirector::sharedDirector()->getRunningScene()->getChildByIDRecursive(mllm->currentSelectedNode)->getChildByID("the-sprite"));
+						auto node = dynamic_cast<CCSprite*>(CCDirector::sharedDirector()->getRunningScene()->getChildByIDRecursive(mllm->currentSelectedNode)->getChildByID("the-sprite"));
+						if (!node) {
+							node = dynamic_cast<CCSprite*>(this->getParent()->getChildByID(mllm->currentSelectedNode));
+							if (!node) {
+								Notification::create("An unexpected error occurred.", CCSprite::createWithSpriteFrameName("GJ_deleteIcon_001.png"))->show();
+								return;
+							}
+						}
 						node->setTextureRect(CCRectMake(0, 0, texture->getContentSize().width, texture->getContentSize().height));
-						node->setTexture(texture);
-						node->setContentSize(texture->getContentSize());
 						node->setDirty(true); // com eon
+						node->setTexture(texture);
 					}
 				}
 			);
