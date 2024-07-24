@@ -7,6 +7,8 @@
 
 using namespace geode::prelude;
 
+// DEBUG:
+// class $modify(LoadingLayer){void loadAssets(){}};
 
 class $modify(MyMenuLayer, MenuLayer) {
 	bool init() {

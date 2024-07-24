@@ -304,9 +304,9 @@ void LoadingEditorUI::onChangeSprite(CCObject* sender) {
 								return;
 							}
 						}
-						node->setTextureRect(CCRectMake(0, 0, texture->getContentSize().width, texture->getContentSize().height));
-						node->setDirty(true); // com eon
 						node->setTexture(texture);
+						node->setTextureRect(CCRectMake(0, 0, texture->getContentSize().width, texture->getContentSize().height));
+
 					}
 				}
 			);

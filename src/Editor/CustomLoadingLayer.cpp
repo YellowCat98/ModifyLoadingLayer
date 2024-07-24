@@ -35,11 +35,13 @@ bool CustomLoadingLayer::init() {
 	fmodlogo = DragNode::create(CCSprite::createWithSpriteFrameName("fmodLogo.png"));
 	cocos2dlogo = DragNode::create(CCSprite::createWithSpriteFrameName("cocos2DxLogo.png"));
 	bgtexture = CCSprite::create("game_bg_01_001.png");
+	progressSlider = DragNode::create(CCSprite::create("slidergroove.png"));
 
 	gdlogo->mllm = mllm;
 	robtoplogo->mllm = mllm;
 	fmodlogo->mllm = mllm;
 	cocos2dlogo->mllm = mllm;
+	progressSlider->mllm = mllm;
 
 	// gd logo
 
@@ -86,6 +88,14 @@ bool CustomLoadingLayer::init() {
 	bgtexture->setZOrder(-1);
 	this->addChild(bgtexture);
 
+	// progress slider
+
+	progressSlider->setID("progress-slider");
+	progressSlider->setPosition(ccp(283.5f, 100.0f));
+	progressSlider->setContentSize(CCSize(210.0f, 16.0f));
+	progressSlider->setAnchorPoint(ccp(0.5f, 0.5f));
+	this->addChild(progressSlider);
+
 	// </reverseengineeringloadinglayer>
 
 	
@@ -128,14 +138,16 @@ void CustomLoadingLayer::getPositions() {
 	"{}": {{"x": {}, "y": {} }},
 	"{}": {{"x": {}, "y": {} }},
 	"{}": {{"x": {}, "y": {} }},
+	"{}": {{"x": {}, "y": {} }},
 	"{}": {{"x": {}, "y": {} }}
 }}
 )", gdlogo->getID(), gdlogo->getPositionX(), gdlogo->getPositionY(),
 	robtoplogo->getID(), robtoplogo->getPositionX(), robtoplogo->getPositionY(),
 	fmodlogo->getID(), fmodlogo->getPositionX(), fmodlogo->getPositionY(),
-	cocos2dlogo->getID(), cocos2dlogo->getPositionX(), cocos2dlogo->getPositionY()
+	cocos2dlogo->getID(), cocos2dlogo->getPositionX(), cocos2dlogo->getPositionY(),
+	progressSlider->getID(), progressSlider->getPositionX(), progressSlider->getPositionY()
 ));
-	
+
 	log::info("{}", Positions.dump());
 
 }

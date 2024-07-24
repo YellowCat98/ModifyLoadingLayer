@@ -13,6 +13,7 @@ public:
 	DragNode* cocos2dlogo;
 	DragNode* gdlogo;
 	CCSprite* bgtexture;
+	DragNode* progressSlider;
 	MLLManager* mllm;
 	std::map<std::string, std::map<std::string, float>> DefaultPositions;
 	std::map<std::string, float> DefaultBrainrot;
