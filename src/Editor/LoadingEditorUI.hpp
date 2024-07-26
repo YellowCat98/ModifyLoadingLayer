@@ -13,6 +13,7 @@ protected:
 	CCMenuItemSpriteExtra* hideBoxB;
 	CCMenuItemSpriteExtra* reset;
 	CCMenuItemSpriteExtra* restart;
+	CCMenuItemSpriteExtra* exitBtn;
 	CCLayerColor* toolbar;
 	CCLayerColor* main;
 	CCMenu* mainMenu;
@@ -47,6 +48,7 @@ protected:
 	void onChangeSprite(CCObject* sender);
 	void onChangeBG(CCObject* sender);
 	void Save(CCObject* sender);
+	void exit(CCObject* sender);
 	CCTexture2D* texture;
 	CCTexture2D* bg;
 public:

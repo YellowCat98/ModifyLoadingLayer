@@ -17,6 +17,7 @@ using namespace geode::prelude;
 bool CustomLoadingLayer::init() {
 	if (!CCLayer::init()) return false;
 	this->setID("CustomLoadingLayer");
+	this->setKeypadEnabled(true);
 
 	// <reverseengineeringloadinglayer>
 
@@ -193,7 +194,7 @@ void CustomLoadingLayer::resetSprite() {
 	
 	for (auto kiddo : kids) {
 		std::string str(typeid(*kiddo).name());
-		if (str.find("DragNode") != std::string::npos) {
+		if (str.find("DragNode") != std::string::npos || str.find("CCSprite") != std::string::npos) {
 			nodeIDS.push_back(kiddo->getID());
 		}
 	}
@@ -207,12 +208,22 @@ void CustomLoadingLayer::resetSprite() {
 			auto robtoplogologo = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("RobTopLogoBig_001.png");
 			auto fmodlogologo = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("fmodLogo.png");
 			auto cocos2dlogologo = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("cocos2DxLogo.png");
+			auto bgtexturetexture = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("game_bg_01_001.png");
 			static_cast<CCSprite*>(gdlogo->getChildByID("the-sprite"))->setDisplayFrame(gdlogologo);
 			static_cast<CCSprite*>(robtoplogo->getChildByID("the-sprite"))->setDisplayFrame(robtoplogologo);
 			static_cast<CCSprite*>(fmodlogo->getChildByID("the-sprite"))->setDisplayFrame(fmodlogologo);
 			static_cast<CCSprite*>(cocos2dlogo->getChildByID("the-sprite"))->setDisplayFrame(cocos2dlogologo);
+			static_cast<CCSprite*>(bgtexture)->setDisplayFrame(bgtexturetexture);
+			log::info("aaaaa");
+			
 		}
 	}
+}
+
+void CustomLoadingLayer::keyBackClicked() {
+	this->setKeypadEnabled(false);
+	auto director = CCDirector::sharedDirector();
+	director->popSceneWithTransition(0.5f, PopTransition::kPopTransitionFade);
 }
 
 CustomLoadingLayer* CustomLoadingLayer::create() {

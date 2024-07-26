@@ -27,20 +27,27 @@ bool LoadingEditorUI::init() {
 	toolbar->addChild(menu);
 	this->addChild(toolbar);
 	
+	// <create exit>
+	exitBtn = CCMenuItemSpriteExtra::create(CCSprite::createWithSpriteFrameName("GJ_arrow_01_001.png"), this, menu_selector(LoadingEditorUI::exit));
+	exitBtn->setPosition({10.0f, 10.0f});
+	exitBtn->setScale(0.5f);
+	REMOVE_EASE(exitBtn);
+	menu->addChild(exitBtn);
+	// </create exit>
 
 	// <create hide toolbar>
-	auto moveBtn = CCMenuItemSpriteExtra::create(CCSprite::createWithSpriteFrameName("GJ_arrow_03_001.png"), this, menu_selector(LoadingEditorUI::moving));
-	moveBtn->setRotation(-90.0f);
-	moveBtn->setPosition({10.0f, 10.0f});
-	moveBtn->setScale(0.5f);
-	REMOVE_EASE(moveBtn);
-	menu->addChild(moveBtn);
-	hideToolbar = moveBtn;
+	auto hideToolbar = CCMenuItemSpriteExtra::create(CCSprite::createWithSpriteFrameName("GJ_arrow_03_001.png"), this, menu_selector(LoadingEditorUI::moving));
+	hideToolbar->setRotation(-90.0f);
+	hideToolbar->setPosition({(exitBtn->getPositionX() + 20.0f), 10.0f});
+	hideToolbar->setScale(0.5f);
+	REMOVE_EASE(hideToolbar);
+	menu->addChild(hideToolbar);
+
 	// </create hide toolbar>
 
 	// <create reset button>
 	reset = CCMenuItemSpriteExtra::create(CCSprite::createWithSpriteFrameName("MLL_EraseBtn.png"_spr), this, menu_selector(LoadingEditorUI::Reset));
-	reset->setPosition({(moveBtn->getPositionX() + 20.0f), 10.0f});
+	reset->setPosition({(hideToolbar->getPositionX() + 20.0f), 10.0f});
 	reset->setScale(0.4f);
 	REMOVE_EASE(reset);
 	menu->addChild(reset);
@@ -181,48 +188,6 @@ void LoadingEditorUI::Save(CCObject* sender) {
 }
 
 void LoadingEditorUI::onChangeBG(CCObject* sender) {
-/*
-	#ifdef GEODE_IS_WINDOWS
-	file::FilePickOptions::Filter filter = {
-		.description = "Import BG Sprite",
-		.files = { "*.png"}
-	};
-	#else
-	file::FilePickOptions::Filter filter = {};
-	#endif
-	file::FilePickOptions options = {
-		std::nullopt,
-		{filter}
-	};
-
-	m_pickListener.bind([this](Task<Result<std::filesystem::path>>::Event* event) {
-		if (event->isCancelled()) {
-			Notification::create("Failed to open file.", CCSprite::createWithSpriteFrameName("GJ_deleteIcon_001.png"))->show();
-			return;
-		}
-		if (auto result = event->getValue()) {
-			if (result->isErr()) {
-				Notification::create(fmt::format("An error occured. Error: {}", result->err()), CCSprite::createWithSpriteFrameName("GJ_deleteIcon_001.png"))->show();
-				return;
-			}
-			auto path = result->unwrap();
-			auto target = mllm->temp / "bg-texture.png";
-
-
-			if (std::filesystem::exists(target)) {
-				std::filesystem::remove(target);
-			}
-			std::filesystem::copy_file(path, target, std::filesystem::copy_options::overwrite_existing);
-
-			bg = CCTextureCache::sharedTextureCache()->addImage(target.string().c_str(), false);
-
-			static_cast<CCSprite*>(this->getParent()->getChildByID("bg-texture"))->setTexture(bg);
-
-			
-		}
-	});
-	m_pickListener.setFilter(file::pick(file::PickMode::OpenFile, options));
-*/
 	mllm->currentSelectedNode = "bg-texture";
 }
 
@@ -449,6 +414,12 @@ void LoadingEditorUI::Restart(CCObject* sender) {
 			}
 		}
 	);
+}
+
+void LoadingEditorUI::exit(CCObject* sender) {
+	exitBtn->setScale(0.5f);
+	auto hi = static_cast<CustomLoadingLayer*>(this->getParent());
+	hi->keyBackClicked();
 }
 
 LoadingEditorUI* LoadingEditorUI::create() {

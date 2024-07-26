@@ -40,6 +40,6 @@ class $modify(MyMenuLayer, MenuLayer) {
 
 	scene->addChild(loadinglayer);
 
-	CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5f, scene));
+	CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, scene));
 	}
 };

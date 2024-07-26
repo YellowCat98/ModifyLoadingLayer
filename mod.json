@@ -24,6 +24,12 @@
 			"description": "Disables the restart confirmation.",
 			"type": "bool",
 			"default": false
+		},
+		"disable-load": {
+			"name": "Disable Loading",
+			"description": "Stops the game from loading. There is a keyboard toggle on Desktop, press the space key to continue loading the game, as for mobile, a button is located in the loading screen that continues loading the game.",
+			"type": "bool",
+			"default": false
 		}
 
 	},

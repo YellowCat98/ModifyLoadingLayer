@@ -28,6 +28,7 @@ public:
 	void resetSprite();
 	void getPositions();
 	void getRotations();
+	void keyBackClicked();
 private:
 	bool init() override;
 };
