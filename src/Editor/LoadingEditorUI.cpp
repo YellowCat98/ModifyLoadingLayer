@@ -36,7 +36,7 @@ bool LoadingEditorUI::init() {
 	// </create exit>
 
 	// <create hide toolbar>
-	auto hideToolbar = CCMenuItemSpriteExtra::create(CCSprite::createWithSpriteFrameName("GJ_arrow_03_001.png"), this, menu_selector(LoadingEditorUI::moving));
+	hideToolbar = CCMenuItemSpriteExtra::create(CCSprite::createWithSpriteFrameName("GJ_arrow_03_001.png"), this, menu_selector(LoadingEditorUI::moving));
 	hideToolbar->setRotation(-90.0f);
 	hideToolbar->setPosition({(exitBtn->getPositionX() + 20.0f), 10.0f});
 	hideToolbar->setScale(0.5f);
