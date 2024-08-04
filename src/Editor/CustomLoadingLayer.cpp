@@ -99,8 +99,9 @@ bool CustomLoadingLayer::init() {
 	
 
 	bar->setContentSize(CCSize(206.6f, 8.0f));
-	bar->setPosition(ccp(2.0f, 4.0f));
-	bar->setTextureRect(progressSlider->getSprite()->getTextureRect());
+	bar->setPosition(ccp(2.0f, 8.0f));
+	bar->setAnchorPoint({0.0f, 0.5f});
+	bar->setTextureRect(CCRectMake(0, 0, 200, 8));
 	progressSlider->getSprite()->addChild(bar);
 	bar->setZOrder(-1);
 	this->addChild(progressSlider);
