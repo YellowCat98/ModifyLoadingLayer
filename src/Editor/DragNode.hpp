@@ -19,5 +19,6 @@ protected:
 public:
 	static DragNode* create(CCSprite* THEFUCKINGSPRITE);
 	virtual void setColor(const ccColor3B& color3) override;
+	CCSprite* getSprite();
 	MLLManager* mllm;
 };

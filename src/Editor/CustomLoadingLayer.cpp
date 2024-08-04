@@ -37,6 +37,7 @@ bool CustomLoadingLayer::init() {
 	cocos2dlogo = DragNode::create(CCSprite::createWithSpriteFrameName("cocos2DxLogo.png"));
 	bgtexture = CCSprite::create("game_bg_01_001.png");
 	progressSlider = DragNode::create(CCSprite::create("slidergroove.png"));
+	bar = CCSprite::create("sliderBar.png");
 
 	gdlogo->mllm = mllm;
 	robtoplogo->mllm = mllm;
@@ -95,6 +96,13 @@ bool CustomLoadingLayer::init() {
 	progressSlider->setPosition(ccp(283.5f, 100.0f));
 	progressSlider->setContentSize(CCSize(210.0f, 16.0f));
 	progressSlider->setAnchorPoint(ccp(0.5f, 0.5f));
+	
+
+	bar->setContentSize(CCSize(206.6f, 8.0f));
+	bar->setPosition(ccp(2.0f, 4.0f));
+	bar->setTextureRect(progressSlider->getSprite()->getTextureRect());
+	progressSlider->getSprite()->addChild(bar);
+	bar->setZOrder(-1);
 	this->addChild(progressSlider);
 
 	// </reverseengineeringloadinglayer>
@@ -187,6 +195,8 @@ void CustomLoadingLayer::resetScale() {
 }
 
 void CustomLoadingLayer::resetSprite() {
+	
+	
 	CCArrayExt<DragNode*> kids = this->getChildren();
 	std::vector<std::string> nodeIDS;
 	nodeIDS.reserve(kids.size());
@@ -194,7 +204,7 @@ void CustomLoadingLayer::resetSprite() {
 	
 	for (auto kiddo : kids) {
 		std::string str(typeid(*kiddo).name());
-		if (str.find("DragNode") != std::string::npos || str.find("CCSprite") != std::string::npos) {
+		if (str.find("DragNode") != std::string::npos && str.find("CCSprite")) {
 			nodeIDS.push_back(kiddo->getID());
 		}
 	}
@@ -208,12 +218,14 @@ void CustomLoadingLayer::resetSprite() {
 			auto robtoplogologo = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("RobTopLogoBig_001.png");
 			auto fmodlogologo = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("fmodLogo.png");
 			auto cocos2dlogologo = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("cocos2DxLogo.png");
-			auto bgtexturetexture = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("game_bg_01_001.png");
+			auto bgtexturetexture = CCTextureCache::sharedTextureCache()->addImage("game_bg_01_001.png", false);
+
 			static_cast<CCSprite*>(gdlogo->getChildByID("the-sprite"))->setDisplayFrame(gdlogologo);
 			static_cast<CCSprite*>(robtoplogo->getChildByID("the-sprite"))->setDisplayFrame(robtoplogologo);
 			static_cast<CCSprite*>(fmodlogo->getChildByID("the-sprite"))->setDisplayFrame(fmodlogologo);
 			static_cast<CCSprite*>(cocos2dlogo->getChildByID("the-sprite"))->setDisplayFrame(cocos2dlogologo);
-			static_cast<CCSprite*>(bgtexture)->setDisplayFrame(bgtexturetexture);
+			bgtexture->setTexture(bgtexturetexture);
+			bgtexture->setTextureRect(CCRectMake(0, 0, bgtexturetexture->getContentSize().width, bgtexturetexture->getContentSize().height));
 			log::info("aaaaa");
 			
 		}

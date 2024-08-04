@@ -80,6 +80,16 @@ void DragNode::setColor(const ccColor3B& color3) {
 	}
 }
 
+CCSprite* DragNode::getSprite() {
+	auto sprite = dynamic_cast<CCSprite*>(this->getChildByID("the-sprite"));
+	if (!sprite) {
+		log::info("DragNode has no CCSprite in it!");
+		return nullptr;
+	} else {
+		return sprite;
+	}
+}
+
 DragNode* DragNode::create(CCSprite* THEFUCKINGSPRITE) {
 	auto ret = new DragNode;
 	if (ret->init(THEFUCKINGSPRITE)) {

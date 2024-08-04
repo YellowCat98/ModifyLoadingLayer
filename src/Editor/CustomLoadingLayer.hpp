@@ -14,6 +14,7 @@ public:
 	DragNode* gdlogo;
 	CCSprite* bgtexture;
 	DragNode* progressSlider;
+	CCSprite* bar;
 	MLLManager* mllm;
 	std::map<std::string, std::map<std::string, float>> DefaultPositions;
 	std::map<std::string, float> DefaultBrainrot;
