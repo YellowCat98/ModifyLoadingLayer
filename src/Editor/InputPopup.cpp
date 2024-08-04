@@ -9,7 +9,7 @@ bool InputPopup::init(float width, float height, std::string const& asdasd, Drag
 bool InputPopup::setup(std::string const& value) {
 	auto winSize = CCDirector::sharedDirector()->getWinSize();
 
-	this->setTitle("Type a Node ID");
+	this->setTitle("Set Node ID");
 
 	a = InputNode::create(200.0f, value.c_str(), "chatFont.fnt", "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~", 0);
 	m_buttonMenu->addChild(a);
@@ -21,7 +21,12 @@ bool InputPopup::setup(std::string const& value) {
 	return true;
 }
 
+void keyBackClicked() {
+	// automatically confirm and exit the layer at esc click
+}
+
 void InputPopup::confirm(CCObject* sender) {
+	conf->setScale(0.8f);
 	asdasdNode->setID(a->getString() += "-custom");
 	auto scene = CCDirector::sharedDirector()->getRunningScene();
 	log::info("{}", asdasdNode->getID());

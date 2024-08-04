@@ -208,7 +208,8 @@ void LoadingEditorUI::onHide(CCObject* sender) {
 }
 
 void LoadingEditorUI::onChangeSprite(CCObject* sender) {
-	CCSprite* node;
+	CCSprite* node = nullptr;
+	DragNode* customNode = nullptr;
 	std::unordered_set<std::string> thefiles;
 	thefiles.insert("*.png");
 	utils::file::FilePickOptions::Filter idk;
@@ -217,7 +218,7 @@ void LoadingEditorUI::onChangeSprite(CCObject* sender) {
 	utils::file::FilePickOptions pick;
 	pick.filters = {idk}; // why this is so dumb
 	std::filesystem::path path;
-	m_pickListener.bind([this, path, &node](Task<Result<std::filesystem::path>>::Event* event) {
+	m_pickListener.bind([this, path, &node, &customNode](Task<Result<std::filesystem::path>>::Event* event) {
 		if (event->isCancelled()) {
 			Notification::create("Failed to open file.")->show();
 			return;
@@ -249,19 +250,26 @@ void LoadingEditorUI::onChangeSprite(CCObject* sender) {
 				"Would you like to change the sprite of\nthe current selected node\n"
 				"Or add a new sprite? this will be treated as every other sprite.",
 				"Change", "Add",
-				[this](auto, bool btn2) {
+				[this, &node, &customNode](auto, bool btn2) {
 					if (btn2) {
-						auto node = DragNode::create(CCSprite::createWithTexture(texture));
-						auto popup = InputPopup::create("my-cool-sprite", node);
+						customNode = DragNode::create(CCSprite::createWithTexture(texture));
+						auto popup = InputPopup::create("my-cool-sprite", customNode);
 						popup->show();
-						node->mllm = mllm;
-						this->getParent()->addChild(node);
+						if (!customNode) {
+							log::info("a");
+							return;
+						} else {
+							customNode->mllm = mllm;
+						}
+						
+						
+						this->getParent()->addChild(customNode);
 					} else {
 							if (mllm->currentSelectedNode.empty()) {
 								Notification::create("Select a node first!", CCSprite::createWithSpriteFrameName("GJ_deleteIcon_001.png"))->show();
 								return;
 							}
-						auto node = dynamic_cast<CCSprite*>(CCDirector::sharedDirector()->getRunningScene()->getChildByIDRecursive(mllm->currentSelectedNode)->getChildByID("the-sprite"));
+						node = dynamic_cast<CCSprite*>(CCDirector::sharedDirector()->getRunningScene()->getChildByIDRecursive(mllm->currentSelectedNode)->getChildByID("the-sprite"));
 						if (!node) {
 							node = dynamic_cast<CCSprite*>(this->getParent()->getChildByID(mllm->currentSelectedNode));
 							if (!node) {
