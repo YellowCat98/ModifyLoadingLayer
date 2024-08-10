@@ -104,6 +104,7 @@ bool CustomLoadingLayer::init() {
 	bar->setTextureRect(CCRectMake(0, 0, 200, 8));
 	progressSlider->getSprite()->addChild(bar);
 	bar->setZOrder(-1);
+	bar->setID("progress-bar");
 	this->addChild(progressSlider);
 
 	// </reverseengineeringloadinglayer>

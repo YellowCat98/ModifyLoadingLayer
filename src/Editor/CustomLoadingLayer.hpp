@@ -15,11 +15,16 @@ public:
 	CCSprite* bgtexture;
 	DragNode* progressSlider;
 	CCSprite* bar;
+	CCLabelBMFont* text;
+	CCLabelBMFont* geodeLoading;
 	MLLManager* mllm;
 	std::map<std::string, std::map<std::string, float>> DefaultPositions;
 	std::map<std::string, float> DefaultBrainrot;
 	matjson::Value Positions;
 	matjson::Value Rotations;
+	matjson::Value Scale;
+	matjson::Value RGBA;
+	//matjson::Value Sprites;
 
 	static CustomLoadingLayer* create();
 	void resetPosition();
@@ -29,6 +34,9 @@ public:
 	void resetSprite();
 	void getPositions();
 	void getRotations();
+	void MLLgetScale(); // conflicts with CustomLoadingLayer::getScale(float), so i renamed it to MLLgetScale()!;
+	void getRGBA();
+	void getSprite(); // this will be a tough one!
 	void keyBackClicked();
 private:
 	bool init() override;

@@ -277,9 +277,12 @@ void LoadingEditorUI::onChangeSprite(CCObject* sender) {
 								return;
 							}
 						}
-						node->setTexture(texture);
-						node->setTextureRect(CCRectMake(0, 0, texture->getContentSize().width, texture->getContentSize().height));
-
+						if (mllm->currentSelectedNode != "progress-slider") {
+							node->setTexture(texture);
+							node->setTextureRect(CCRectMake(0, 0, texture->getContentSize().width, texture->getContentSize().height));
+						} else {
+							static_cast<CCSprite*>(node->getChildByID("progress-bar"))->setTexture(texture);
+						}
 					}
 				}
 			);
