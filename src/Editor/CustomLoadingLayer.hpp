@@ -25,7 +25,7 @@ public:
 	void resetPosition();
 	void resetRotation();
 	void resetScale();
-	void resetOpacity();
+	void resetRGBA();
 	void resetSprite();
 	void getPositions();
 	void getRotations();

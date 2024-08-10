@@ -180,11 +180,16 @@ void CustomLoadingLayer::getRotations() {
 
 }
 
-void CustomLoadingLayer::resetOpacity() {
+void CustomLoadingLayer::resetRGBA() {
 	static_cast<CCSprite*>(gdlogo->getChildByID("the-sprite"))->setOpacity(255);
 	static_cast<CCSprite*>(robtoplogo->getChildByID("the-sprite"))->setOpacity(255);
 	static_cast<CCSprite*>(cocos2dlogo->getChildByID("the-sprite"))->setOpacity(255);
 	static_cast<CCSprite*>(fmodlogo->getChildByID("the-sprite"))->setOpacity(255);
+
+	static_cast<CCSprite*>(gdlogo->getChildByID("the-sprite"))->setColor({255, 255, 255});
+	static_cast<CCSprite*>(robtoplogo->getChildByID("the-sprite"))->setColor({255, 255, 255});
+	static_cast<CCSprite*>(cocos2dlogo->getChildByID("the-sprite"))->setColor({255, 255, 255});
+	static_cast<CCSprite*>(fmodlogo->getChildByID("the-sprite"))->setColor({0, 0, 0});
 }
 
 void CustomLoadingLayer::resetScale() {
