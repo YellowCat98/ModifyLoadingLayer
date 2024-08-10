@@ -10,10 +10,11 @@ bool InputPopup::setup(std::string const& value) {
 	auto winSize = CCDirector::sharedDirector()->getWinSize();
 
 	this->setTitle("Set Node ID");
+	this->m_closeBtn->removeFromParent();
 
 	a = InputNode::create(200.0f, value.c_str(), "chatFont.fnt", "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~", 0);
 	m_buttonMenu->addChild(a);
-	conf = CCMenuItemSpriteExtra::create(ButtonSprite::create("OK"), this, menu_selector(InputPopup::confirm));
+	conf = CCMenuItemSpriteExtra::create(ButtonSprite::create("OK"), this, menu_selector(InputPopup::onClose));
 	conf->setScale(0.8f);
 	conf->setPositionY(-30.0f);
 	m_buttonMenu->addChild(conf);
@@ -21,11 +22,14 @@ bool InputPopup::setup(std::string const& value) {
 	return true;
 }
 
-void keyBackClicked() {
+void InputPopup::onClose(CCObject* sender) {
 	// automatically confirm and exit the layer at esc click
+	InputPopup::confirm();
+	Popup::onClose(sender);
+
 }
 
-void InputPopup::confirm(CCObject* sender) {
+void InputPopup::confirm() {
 	conf->setScale(0.8f);
 	asdasdNode->setID(a->getString() += "-custom");
 	auto scene = CCDirector::sharedDirector()->getRunningScene();

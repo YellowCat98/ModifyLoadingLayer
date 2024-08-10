@@ -10,8 +10,8 @@ class InputPopup : public geode::Popup<std::string const&> {
 protected:
     bool setup(std::string const& value) override;
     bool init(float width, float height, std::string const& asdasd, DragNode* node);
-    void confirm(CCObject* sender);
-    //void keyBackClicked() override;
+    void confirm();
+    void onClose(CCObject* sender) override;
     InputNode* a;
     DragNode* asdasdNode;
     
